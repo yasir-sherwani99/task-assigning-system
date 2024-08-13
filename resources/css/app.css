@@ -1,0 +1,7 @@
+/* Importing Bootstrap CSS */
+@import url('../../public/admin-assets/css/bootstrap.min.css');
+@import url('../../public/admin-assets/css/icons.min.css');
+@import url('../../public/admin-assets/plugins/tabulator/bootstrap/tabulator_bootstrap4.css');
+@import url('../../public/admin-assets/plugins/sweet-alert2/sweetalert2.min.css');
+@import url('../../public/admin-assets/plugins/select/selectr.min.css');
+@import url('../../public/admin-assets/css/app.min.css');
