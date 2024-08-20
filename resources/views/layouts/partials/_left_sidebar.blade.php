@@ -106,16 +106,26 @@
                             <i class="ti ti-file-check menu-icon"></i>
                             <span>Tasks</span>
                         </a>
-                        <div class="collapse {{ request()->routeIs('tasks.index') || request()->routeIs('tasks.edit') || request()->routeIs('tasks.create') ? 'show' : '' }}" id="sidebarTask">
+                        <div class="collapse {{ request()->routeIs('tasks.index') || request()->routeIs('tasks.edit') || request()->routeIs('tasks.create') || request()->routeIs('tasks.show') || request()->routeIs('mytasks.index') ? 'show' : '' }}" id="sidebarTask">
                             <ul class="nav flex-column">
                                <li class="nav-item">
                                     <a 
-                                        class="nav-link {{ request()->routeIs('tasks.index') || request()->routeIs('tasks.edit') ? 'active' : '' }}" 
+                                        class="nav-link {{ request()->routeIs('tasks.index') || request()->routeIs('tasks.edit') || request()->routeIs('tasks.show') ? 'active' : '' }}" 
                                         href="{{ route('tasks.index') }}"
                                     >
                                         Tasks List
                                     </a>
                                 </li><!--end nav-item-->
+                                @role('team-member')
+                                    <li class="nav-item">
+                                        <a 
+                                            class="nav-link {{ request()->routeIs('mytasks.index') ? 'active' : '' }}" 
+                                            href="{{ route('mytasks.index') }}"
+                                        >
+                                            My Tasks
+                                        </a>
+                                    </li>
+                                @endrole
                                 <li class="nav-item">
                                     <a 
                                         class="nav-link {{ request()->routeIs('tasks.create') ? 'active' : '' }}" 
@@ -129,7 +139,7 @@
                     </li><!--end nav-item-->
                     <li class="nav-item">
                         <a 
-                            class="nav-link {{ request()->routeIs('tasks.index') || request()->routeIs('tasks.edit') || request()->routeIs('tasks.create') ? 'active' : '' }}" 
+                            class="nav-link {{ request()->routeIs('defects.index') || request()->routeIs('defects.edit') || request()->routeIs('defects.create') ? 'active' : '' }}" 
                             href="#sidebarDefects" 
                             data-bs-toggle="collapse" 
                             role="button"
@@ -155,6 +165,72 @@
                                         href="{{ route('defects.create') }}"
                                     >
                                         New Defects
+                                    </a>
+                                </li><!--end nav-item-->
+                            </ul><!--end nav-->
+                        </div><!--end sidebarPages-->
+                    </li><!--end nav-item-->
+                    <li class="nav-item">
+                        <a 
+                            class="nav-link {{ request()->routeIs('meetings.index') || request()->routeIs('meetings.edit') || request()->routeIs('meetings.create') ? 'active' : '' }}" 
+                            href="#sidebarMeetings" 
+                            data-bs-toggle="collapse" 
+                            role="button"
+                            aria-expanded="false" 
+                            aria-controls="sidebarMeetings"
+                        >
+                            <i class="ti ti-briefcase menu-icon"></i>
+                            <span>Meetings</span>
+                        </a>
+                        <div class="collapse {{ request()->routeIs('meetings.index') || request()->routeIs('meetings.edit') || request()->routeIs('meetings.create') ? 'show' : '' }}" id="sidebarMeetings">
+                            <ul class="nav flex-column">
+                               <li class="nav-item">
+                                    <a 
+                                        class="nav-link {{ request()->routeIs('meetings.index') || request()->routeIs('meetings.edit') ? 'active' : '' }}" 
+                                        href="{{ route('meetings.index') }}"
+                                    >
+                                        Meetings List
+                                    </a>
+                                </li><!--end nav-item-->
+                                <li class="nav-item">
+                                    <a 
+                                        class="nav-link {{ request()->routeIs('meetings.create') ? 'active' : '' }}" 
+                                        href="{{ route('meetings.create') }}"
+                                    >
+                                        New Meeting
+                                    </a>
+                                </li><!--end nav-item-->
+                            </ul><!--end nav-->
+                        </div><!--end sidebarPages-->
+                    </li><!--end nav-item-->
+                    <li class="nav-item">
+                        <a 
+                            class="nav-link {{ request()->routeIs('appointments.index') || request()->routeIs('appointments.edit') || request()->routeIs('appointments.create') ? 'active' : '' }}" 
+                            href="#sidebarAppointments" 
+                            data-bs-toggle="collapse" 
+                            role="button"
+                            aria-expanded="false" 
+                            aria-controls="sidebarAppointments"
+                        >
+                            <i class="ti ti-calendar menu-icon"></i>
+                            <span>Appointments</span>
+                        </a>
+                        <div class="collapse {{ request()->routeIs('appointments.index') || request()->routeIs('appointments.edit') || request()->routeIs('appointments.create') ? 'show' : '' }}" id="sidebarAppointments">
+                            <ul class="nav flex-column">
+                               <li class="nav-item">
+                                    <a 
+                                        class="nav-link {{ request()->routeIs('appointments.index') || request()->routeIs('appointments.edit') ? 'active' : '' }}" 
+                                        href="{{ route('appointments.index') }}"
+                                    >
+                                        Appointments List
+                                    </a>
+                                </li><!--end nav-item-->
+                                <li class="nav-item">
+                                    <a 
+                                        class="nav-link {{ request()->routeIs('appointments.create') ? 'active' : '' }}" 
+                                        href="{{ route('appointments.create') }}"
+                                    >
+                                        New Appointment
                                     </a>
                                 </li><!--end nav-item-->
                             </ul><!--end nav-->
@@ -237,7 +313,7 @@
                     </li><!--end nav-item-->
                     <li class="nav-item">
                         <a 
-                            class="nav-link {{ request()->routeIs('users.index') || request()->routeIs('users.edit') || request()->routeIs('users.create') ? 'active' : '' }}" 
+                            class="nav-link {{ request()->routeIs('users.index') || request()->routeIs('users.edit') || request()->routeIs('users.create') || request()->routeIs('users.roles-permissions.edit') ? 'active' : '' }}" 
                             href="#sidebarHRM" 
                             data-bs-toggle="collapse" 
                             role="button"
@@ -247,11 +323,11 @@
                             <i class="ti ti-users menu-icon"></i>
                             <span>HRM</span>
                         </a>
-                        <div class="collapse {{ request()->routeIs('users.index') || request()->routeIs('users.edit') || request()->routeIs('users.create') ? 'show' : '' }}" id="sidebarHRM">
+                        <div class="collapse {{ request()->routeIs('users.index') || request()->routeIs('users.edit') || request()->routeIs('users.create') || request()->routeIs('users.roles-permissions.edit') ? 'show' : '' }}" id="sidebarHRM">
                             <ul class="nav flex-column">
                                <li class="nav-item">
                                     <a 
-                                        class="nav-link {{ request()->routeIs('users.index') || request()->routeIs('users.edit') ? 'active' : '' }}" 
+                                        class="nav-link {{ request()->routeIs('users.index') || request()->routeIs('users.edit') || request()->routeIs('users.roles-permissions.edit') ? 'active' : '' }}" 
                                         href="{{ route('users.index') }}"
                                     >
                                         Users

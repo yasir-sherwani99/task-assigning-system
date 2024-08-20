@@ -92,7 +92,7 @@
                                     id="status"
                                     required
                                 >
-                                    <option value="{{ $task->status }}">{{ ucwords($task->status) }}</option>
+                                    <option value="{{ $task->status }}">{{ ucwords(Str::replace('_', ' ', $task->status)) }}</option>
                                     <option value="open">Open</option>
                                     <option value="in_progress">In Progress</option>
                                     <option value="on_hold">On Hold</option>

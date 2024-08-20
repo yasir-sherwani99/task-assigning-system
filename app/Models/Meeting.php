@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Task extends Model
+class Meeting extends Model
 {
     use HasFactory;
 
@@ -15,15 +15,14 @@ class Task extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'title',
+        'organizer_id',
         'start_date',
         'end_date',
-        'description',
         'project_id',
-        'assigned_to_id',
-        'estimated_hours',
-        'progress',
-        'priority',
+        'client_id',
+        'location',
+        'description',
         'status'
     ];
 
@@ -37,9 +36,14 @@ class Task extends Model
         return $this->belongsTo(Project::class, 'project_id');
     }
 
-    public function assigned()
+    public function clients()
     {
-        return $this->belongsTo(User::class, 'assigned_to_id');
+        return $this->belongsTo(Client::class, 'client_id');
+    }
+
+    public function members()
+    {
+        return $this->belongsToMany(User::class, 'meetings_members');
     }
 
     /*
@@ -47,9 +51,9 @@ class Task extends Model
     | Mutators
     |---------------------------------------------------------------
     */
-    public function setNameAttribute($value)
+    public function setTitleAttribute($value)
     {
-        return $this->attributes['name'] = ucwords($value);
+        return $this->attributes['title'] = ucwords($value);
     }
 
     /*
@@ -76,17 +80,4 @@ class Task extends Model
     {
         return $query->where('status', 'completed');
     }
-
 }
-
-
-
-
-
-
-
-
-
-
-
-

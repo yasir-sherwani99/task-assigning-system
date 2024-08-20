@@ -6,7 +6,7 @@ use App\Models\Permission;
 
 trait PermissionTrait
 {
-    public function getPermissions()
+    public function getAllPermissionsWithGroups()
     {
         $permissionArray = [];
         $permissions = Permission::with('groups')->groupBy('group_id')->get();

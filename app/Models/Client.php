@@ -44,6 +44,11 @@ class Client extends Model
         return $this->hasMany(Project::class, 'client_id');
     }
 
+    public function meeting()
+    {
+        return $this->hasOne(Meeting::class, 'client_id');
+    }
+
     /*
     |---------------------------------------------------------------
     | Scopes

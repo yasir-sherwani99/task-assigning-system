@@ -181,7 +181,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row mb-3">
+                        <div class="row mb-4">
                             <div class="col-md-12">
                                 <label for="role_id" class="form-label fw-bold">Role <span class="text-danger">*</span></label>                                            
                                 <select 
@@ -203,7 +203,7 @@
                         </div>
                         <div class="row mb-3">
                             <div class="col-md-12">
-                                <label for="name" class="form-label fw-bold">Permission <span class="text-danger">*</span></label>
+                                <label for="name" class="form-label fw-bold">Permissions <span class="text-danger">*</span></label>
                                 @foreach($permissionArray as $permission)
                                     <div class="row my-2">
                                         <div class="col-md-3 fw-semibold">

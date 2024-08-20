@@ -4,7 +4,16 @@
     <style>
         .tabulator .tabulator-header .tabulator-col {
             background-color: #f1f5fa !important;
-         }
+        }
+        #datatable-users {
+            overflow: visible !important;
+        }
+        #datatable-users .tabulator-cell {
+            overflow: visible !important;
+        }
+        #datatable-users .tabulator-tableholder {
+            overflow: visible !important;
+        }
     </style>
 @endsection
 
@@ -67,7 +76,17 @@
                     }
                 }},
                 {title:"Action", field:"action", widthGrow:2, hozAlign:"left", vertAlign:"middle", formatter:function(cell, formatterParams){
-                    return `<a href="/users/${cell.getValue()}/edit"><i class="las la-pen text-secondary font-16 me-1"></i></a><a href="#" onclick="deleteRow(${cell.getValue()})"><i class="las la-trash-alt text-secondary font-16"></i></a>`;
+                   // return `<a href="/users/${cell.getValue()}/edit"><i class="las la-pen text-secondary font-16 me-1"></i></a><a href="#" onclick="deleteRow(${cell.getValue()})"><i class="las la-trash-alt text-secondary font-16"></i></a>`;
+                    return `<div class="dropdown d-inline-block">
+                                <a class="dropdown-toggle arrow-none" id="dLabel11" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                                    <i class="las la-ellipsis-v font-20 text-muted"></i>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dLabel11">
+                                    <a class="dropdown-item" href="/users/${cell.getValue()}/edit">Edit User</a>
+                                    <a class="dropdown-item" href="#">Delete User</a>
+                                    <a class="dropdown-item" href="/user/role-permissions/${cell.getValue()}/edit">Edit Role & Permissions</a>
+                                </div>
+                            </div>`
                 }},
             ],
         });

@@ -19,9 +19,10 @@
                 @else
                     <span class="badge bg-success me-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Priority">Low</span>
                 @endif
-                <span class="text-muted">01:33</span> / 
-                <span class="text-muted">9:30</span> 
-                <span class="mx-1">{{ $task->assigned->first_name }}</span> 
+                @if(isset($task->estimated_hours))
+                    <span class="text-muted" data-bs-toggle="tooltip" data-bs-placement="top" title="Estimated Hours">{{ $task->estimated_hours }}</span>
+                @endif
+                <span class="mx-1">{{ Str::limit($task->assigned->first_name, 5) }}</span> 
                 <span data-bs-toggle="tooltip" data-bs-placement="top" title="End Date"><i class="far fa-fw fa-clock"></i> {{ Carbon::parse($task->end_date)->toFormattedDateString() }}</span>
             </p>
             <h5 class="mt-0">{{ Str::limit($task->name, 25) }}</h5>
@@ -91,6 +92,11 @@
                                 <i class="mdi mdi-trash-can-outline text-muted font-18"></i>
                             </button>
                         </form>                                                    
+                    </li>
+                    <li class="list-item d-inline-block">
+                        <a class="ms-1" href="{{ route('tasks.show', $task->id) }}">
+                            <i class="mdi mdi-eye text-muted font-18"></i>
+                        </a>                                                                               
                     </li>
                 </ul>
             </div>                                        

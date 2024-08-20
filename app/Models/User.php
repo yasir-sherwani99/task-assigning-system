@@ -89,6 +89,11 @@ class User extends Authenticatable
         return $this->hasOne(Defect::class, 'assigned_to_id');
     }
 
+    public function meetings()
+    {
+        return $this->belongsToMany(Meeting::class, 'meetings_members');
+    }
+
     /*
     |---------------------------------------------------------------
     | Scopes

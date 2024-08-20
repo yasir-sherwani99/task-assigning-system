@@ -2,7 +2,7 @@
     <div class="card-header">
         <div class="row align-items-center">
             <div class="col">                      
-                <h4 class="card-title">Overview</h4>                      
+                <h4 class="card-title">Defect Performance</h4>                      
             </div><!--end col-->
             <div class="col-auto"> 
                 <div class="dropdown">
@@ -19,10 +19,11 @@
     </div><!--end card-header-->
     <div class="card-body">
         <div class="text-center">
-            <div id="overview" class="apex-charts"></div>
+            <!-- <div id="defect_status" class="apex-charts"></div> -->
+            <div id="defect_status" class="apex-charts"></div>
             <h6 class="text-primary bg-soft-primary p-3 mb-0">
                 <i data-feather="calendar" class="align-self-center icon-xs me-1"></i>
-                {{ $start_date }} to {{ $end_date }}
+                01 January 2021 to 31 June 2021
             </h6>
         </div>                                     
     </div><!--end card-body--> 

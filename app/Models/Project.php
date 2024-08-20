@@ -64,6 +64,11 @@ class Project extends Model
         return $this->hasMany(Defect::class, 'project_id');
     }
 
+    public function meeting()
+    {
+        return $this->hasOne(Meeting::class, 'project_id');
+    }
+
     /*
     |---------------------------------------------------------------
     | Scopes
@@ -72,6 +77,21 @@ class Project extends Model
     public function scopeSort($query, $value)
     {
         return $query->orderBy('created_at', $value);
+    }
+
+    public function scopeOpen($query)
+    {
+        return $query->where('status', 'open');
+    }
+
+    public function scopeInProgress($query)
+    {
+        return $query->where('status', 'in_progress');
+    }
+
+    public function scopeCompleted($query)
+    {
+        return $query->where('status', 'completed');
     }
 
     /*

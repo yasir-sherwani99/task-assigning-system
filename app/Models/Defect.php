@@ -67,4 +67,40 @@ class Defect extends Model
     {
         return $query->orderBy('created_at', $value);
     }
+
+    public function scopeOpen($query)
+    {
+        return $query->where('status', 'open');
+    }
+
+    public function scopeInProgress($query)
+    {
+        return $query->where('status', 'in_progress');
+    }
+
+    public function scopeSolved($query)
+    {
+        return $query->where('status', 'solved');
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

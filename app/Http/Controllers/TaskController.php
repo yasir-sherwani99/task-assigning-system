@@ -78,7 +78,16 @@ class TaskController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $task = Task::with(['projects', 'assigned'])->find($id);
+        if(!isset($task) || empty($task)) {
+    		abort(404);
+    	}
+
+        // page title and breadcrumbs
+        $breadcrumbs = $this->getPagebreadcrumbs("Task View", "Tasks", "View");
+        view()->share('breadcrumbs', $breadcrumbs);
+
+        return view('tasks.show', compact('task'));
     }
 
     /**
@@ -162,5 +171,15 @@ class TaskController extends Controller
 
         return redirect()->route('tasks.index')
                          ->with('success', 'Task status updated successfully');
+    }
+
+    public function myTasksIndex()
+    {   
+        $tasks = Task::where('assigned_to_id', auth()->user()->id)->sort('desc')->paginate(10);
+
+        $breadcrumbs = $this->getPagebreadcrumbs("My Tasks", "Tasks", "List");
+        view()->share('breadcrumbs', $breadcrumbs);
+
+        return view('tasks.index', compact('tasks'));
     }
 }

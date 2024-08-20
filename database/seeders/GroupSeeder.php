@@ -35,6 +35,15 @@ class GroupSeeder extends Seeder
             array(
                 'name' => 'Reports'
             ),
+            array(
+                'name' => 'Permission'
+            ),
+            array(
+                'name' => 'Client'
+            ),
+            array(
+                'name' => 'Defect'
+            ),
         );
 
         if(count($groups) > 0) {

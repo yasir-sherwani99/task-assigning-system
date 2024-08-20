@@ -1,4 +1,5 @@
 /* Importing Bootstrap CSS */
+@import url('../../public/admin-assets/plugins/lightpicker/litepicker.css');
 @import url('../../public/admin-assets/css/bootstrap.min.css');
 @import url('../../public/admin-assets/css/icons.min.css');
 @import url('../../public/admin-assets/plugins/tabulator/bootstrap/tabulator_bootstrap4.css');

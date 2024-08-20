@@ -150,26 +150,6 @@
                                 />
                             </div>
                         </div>
-                        <div class="row mb-3">
-                            <div class="col-md-12">
-                                <label for="role_id" class="form-label fw-bold">Role <span class="text-danger">*</span></label>                                            
-                                <select 
-                                    class="form-select" 
-                                    aria-label="Select Role"
-                                    name="role_id"
-                                    id="role_id"
-                                    required
-                                >
-                                    <option value="{{ $user->role_id }}">{{ $user->roles->name }}</option>
-                                    @foreach($roles as $role)
-                                        <option value="{{ $role->id }}">{{ $role->name }}</option>
-                                    @endforeach
-                                </select>
-                                <div class="invalid-feedback">
-                                    Role is a required field.
-                                </div>
-                            </div>
-                        </div>
                         <div class="form-group mb-3">
                             <div class="form-check form-switch form-switch-success">
                                 <input class="form-check-input" type="checkbox" name="active" id="activeSwitch" {{ $user->status == 'active' ? 'checked' : '' }} />

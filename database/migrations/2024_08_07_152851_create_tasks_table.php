@@ -20,6 +20,7 @@ return new class extends Migration
             $table->unsignedBigInteger('project_id')->nullable();
             $table->unsignedBigInteger('assigned_to_id')->nullable();
             $table->string('estimated_hours')->nullable();
+            $table->integer('progress')->default(0);
             $table->enum('priority', ['urgent','very_high','high','medium','low'])->default('medium');
             $table->enum('status', ['open','in_progress','on_hold','cancel','completed','waiting'])->default('open');
             $table->timestamps();

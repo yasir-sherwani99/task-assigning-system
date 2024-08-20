@@ -55,10 +55,10 @@ class Permission extends Model
         return $this->belongsTo(Group::class, 'group_id');
     }
 
-    // public function roles()
-    // {
-    //     return $this->belongsToMany(Role::class, 'permissions_roles');
-    // }
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class, 'roles_permissions');
+    }
 
     public function users()
     {
