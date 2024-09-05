@@ -112,11 +112,13 @@
                             </form>                                                    
                         </li>
                     @endpermission
-                    <li class="list-item d-inline-block">
-                        <a class="ms-1" href="{{ route('tasks.show', $task->id) }}" data-bs-toggle="tooltip" data-bs-placement="top" title="View">
-                            <i class="mdi mdi-eye text-muted font-18"></i>
-                        </a>                                                                               
-                    </li>
+                    @permission('view-tasks')
+                        <li class="list-item d-inline-block">
+                            <a class="ms-1" href="{{ route('tasks.show', $task->id) }}" data-bs-toggle="tooltip" data-bs-placement="top" title="View">
+                                <i class="mdi mdi-eye text-muted font-18"></i>
+                            </a>                                                                               
+                        </li>
+                    @endpermission
                 </ul>
             </div>                                        
         </div><!--end task-box-->

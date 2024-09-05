@@ -169,6 +169,7 @@
 @endsection
 
 @section('script')
+    <script src="{{ asset('assets/pages/form-validation.js') }}"></script>
     <script>
         let imagePreview = function(event) {
             let newImage = event.target.files[0];

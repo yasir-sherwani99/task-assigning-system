@@ -79,7 +79,7 @@ class Client extends Model
         if(isset($value)) {
             return $value;            
         } else {    
-            return '../../admin-assets/images/users/user-vector.png';
+            return '../../assets/images/users/user-vector.png';
         }
     }
 }

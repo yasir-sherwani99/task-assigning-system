@@ -86,7 +86,7 @@
                                 <div class="fom-group">
                                     <label for="avatar" class="form-label fw-bold">Company Logo</label>
                                     <img 
-                                        src="{{ asset('admin-assets/images/users/user-vector.png') }}" 
+                                        src="{{ asset('assets/images/users/user-vector.png') }}" 
                                         alt="babystore.ae" 
                                         class="thumb-lg rounded mx-3"
                                         id="avatar" 
@@ -270,6 +270,7 @@
 @endsection
 
 @section('script')
+    <script src="{{ asset('assets/pages/form-validation.js') }}"></script>
     <script>
         let imagePreview = function(event) {
             let newImage = event.target.files[0];

@@ -311,14 +311,78 @@ class TaskController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function myTasksIndex()
+    public function myTasksIndex(Request $request)
     {   
-        $tasks = Task::where('assigned_to_id', auth()->user()->id)->sort('desc')->paginate(10);
+        if($request->input('view') !== null) {
+            $view = $request->input('view');
+        } else {
+            $view = null;
+        }
+
+        $tasks = Task::with(['members', 'projects'])
+                    ->whereHas('members', function($q) {
+                        $q->where('user_id', auth()->user()->id);
+                    })
+                    ->sort('desc')
+                    ->paginate(10);
 
         $breadcrumbs = $this->getPagebreadcrumbs("My Tasks", "Tasks", "List");
         view()->share('breadcrumbs', $breadcrumbs);
 
-        return view('tasks.index', compact('tasks'));
+        return view('tasks.index2', compact('tasks', 'view'));
+    }
+
+    /**
+     * Display a listing of the resource.
+     */
+    public function getMyTasks()
+    {
+        $taskArray = [];
+        $tasks = Task::with(['members', 'projects'])
+                    ->whereHas('members', function($q) {
+                        $q->where('user_id', auth()->user()->id);
+                    })
+                    ->sort('desc')
+                    ->get();
+        
+        if(count($tasks) > 0) {
+            foreach($tasks as $task) {
+                $projName = isset($task->projects) ? "#{$task->projects->id} - {$task->projects->name}" : "Project N/A";
+                $taskName = "<div class='media'><div class='media-body align-self-center text-truncate'><h6 class='mt-0 mb-1 link-primary'>{$task->name}</h6><p class='mb-0' data-bs-toggle='tooltip' data-bs-placement='top' title='Related To'>{$projName}</p></div></div>";
+                $taskMembers = "";
+                if(isset($task->members)) {
+                    $taskMembers .= "<div class=\"img-group\">";
+                    foreach($task->members as $key => $member) {
+                        $username = $member->first_name . ' ' . $member->last_name;
+                        if($key < 4) {
+                            $image = asset($member->photo);
+                            $taskMembers .= "<a href=\"#\" class=\"user-avatar\" data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" title=\"{$username}\">";
+                            $taskMembers .= "<img src=\"{$image}\" alt=\"{$member->first_name}\" class=\"thumb-xs rounded-circle\" />";
+                            $taskMembers .= "</a>";
+                        }
+                    }
+                    if(count($task->members) > 4) {
+                        $remaingtaskMembers = count($task->members) - 4;
+                        $taskMembers .= "<a href=\"#\" class=\"user-avatar\">";
+                        $taskMembers .= "<span class=\"thumb-xs justify-content-center d-flex align-items-center bg-soft-info rounded-circle fw-semibold\">+{$remaingtaskMembers}</span>";
+                        $taskMembers .= "</a>";
+                    }
+                    $taskMembers .= "</div>";
+                }
+
+                $taskArray[] = [
+                    'id' => $task->id,
+                    'name' => $taskName, 
+                    'start_date' => $task->start_date,
+                    'assignees' => $taskMembers,
+                    'priority' => $task->priority,
+                    'status' => $task->status,
+                    'action' =>  $task->id
+                ];
+            }
+        }
+
+        return json_encode($taskArray);
     }
 
     /**

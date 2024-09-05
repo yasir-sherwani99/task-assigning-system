@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('style')
-    <link href="{{ asset('admin-assets/plugins/fullcalendar/main.css') }}" rel="stylesheet" type="text/css" />
+    <!-- <link href="{{ asset('assets/plugins/fullcalendar/main.css') }}" rel="stylesheet" type="text/css" /> -->
 @endsection
 
 @section('content')
@@ -80,7 +80,7 @@
 @endsection
 
 @section('script')
-    <script src="{{ asset('admin-assets/plugins/tabulator/tabulator.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/tabulator/tabulator.min.js') }}"></script>
     <script>
         let table = new Tabulator('#datatable-appointments', {
             ajaxURL:"/appointments-datatable",
@@ -116,7 +116,7 @@
             ],
         });
     </script>
-    <script src="{{ asset('admin-assets/plugins/fullcalendar/main.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/fullcalendar/main.min.js') }}"></script>
     <script>
         var calendarData = "{{ $appointmentCalendarData }}";
         var calendarDataa = JSON.parse(calendarData.replace(/&quot;/g,'"'));
@@ -135,7 +135,7 @@
             calendar.render();
         });
     </script>
-    <script src="{{ asset('admin-assets/plugins/sweet-alert2/sweetalert2.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/sweet-alert2/sweetalert2.min.js') }}"></script>
     <script>
         function changeStatusTable(appointmentId)
         {

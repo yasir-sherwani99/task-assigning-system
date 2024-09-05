@@ -1,7 +1,7 @@
 <div class="text-center p-3">
     <a href="{{ url('/') }}" class="logo logo-admin">
         <img 
-            src="{{ asset('admin-assets/images/logos/1667736879.png') }}" 
+            src="{{ asset('assets/images/logos/1667736879.png') }}" 
             height="50" 
             alt="Baby Store" 
             class="auth-logo"

@@ -17,7 +17,8 @@ class UserSeeder extends Seeder
     {
         $admins = array(
             array(
-                'name' => 'Yasir Naeem',
+                'first_name' => 'Yasir',
+                'last_name' => 'Naeem',
                 'email' => 'yasir.sherwani@gmail.com',
                 'password' => Hash::make('123456'),
                 'photo' => null,
@@ -28,7 +29,8 @@ class UserSeeder extends Seeder
                 'status' => 'active'
             ),
             array(
-                'name' => 'Admin',
+                'first_name' => 'Admin',
+                'last_name' => 'Admin',
                 'email' => 'admin@gmail.com',
                 'password' => Hash::make('123456'),
                 'photo' => null,
@@ -45,7 +47,8 @@ class UserSeeder extends Seeder
                 User::updateOrCreate([
                     'email' => $admin['email']
                 ],[
-                    'name' => $admin['name'],
+                    'first_name' => $admin['first_name'],
+                    'last_name' => $admin['last_name'],
                     'password' => $admin['password'],
                     'photo' => $admin['photo'],
                     'phone' => $admin['phone'],

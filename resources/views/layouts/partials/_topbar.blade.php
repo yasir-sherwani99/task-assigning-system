@@ -19,7 +19,7 @@
                             src="{{ asset(auth()->user()->photo) }}" 
                             alt="profile-user" 
                             class="rounded-circle me-2 thumb-sm" 
-                            onerror="this.onerror=null;this.src='{{ asset('admin-assets/images/users/user-vector.png') }}';" 
+                            onerror="this.onerror=null;this.src='{{ asset('assets/images/users/user-vector.png') }}';" 
                         />
                         <div>
                             <small class="d-none d-md-block font-11">Admin</small>

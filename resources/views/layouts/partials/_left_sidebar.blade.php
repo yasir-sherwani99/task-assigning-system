@@ -4,7 +4,7 @@
         <a href="{{ route('home') }}" class="logo">
             <span>
                 <img 
-                    src="{{ asset('admin-assets/images/logos/1667736879.png') }}" 
+                    src="{{ asset('assets/images/logos/1667736879.png') }}" 
                     alt="J1 Door" 
                     class="logo-sm"
                 />
@@ -18,17 +18,15 @@
                 <!-- Navigation -->
                 <ul class="navbar-nav">
                     <li class="menu-label mt-0">H<span>ome</span></li>
-                    @permission('view-dashboard')
-                        <li class="nav-item">
-                            <a 
-                                class="nav-link {{ request()->routeIs('home') ? 'active' : '' }}" 
-                                href="{{ route('home') }}"
-                            >
-                                <i class="ti ti-home menu-icon"></i>
-                                <span>Dashboard</span>
-                            </a>
-                        </li><!--end nav-item-->
-                    @endpermission
+                    <li class="nav-item">
+                        <a 
+                            class="nav-link {{ request()->routeIs('home') ? 'active' : '' }}" 
+                            href="{{ route('home') }}"
+                        >
+                            <i class="ti ti-home menu-icon"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li><!--end nav-item-->
                     <li class="menu-label mt-0">A<span>pp Section</span></li>
                     @role('admin')
                         <li class="nav-item">
@@ -180,14 +178,14 @@
                                             </a>
                                         </li><!--end nav-item-->
                                     @endpermission
-                                    <li class="nav-item">
+                                    <!-- <li class="nav-item">
                                         <a 
                                             class="nav-link {{-- request()->routeIs('mytasks.index') ? 'active' : '' --}}" 
                                             href="{{-- route('mytasks.index') --}}"
                                         >
                                             My Defects
                                         </a>
-                                    </li>
+                                    </li> -->
                                     @permission('create-defect')
                                         <li class="nav-item">
                                             <a 

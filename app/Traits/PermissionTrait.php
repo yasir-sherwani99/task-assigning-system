@@ -2,6 +2,7 @@
 
 namespace App\Traits;
 
+use App\Models\Group;
 use App\Models\Permission;
 
 trait PermissionTrait
@@ -9,13 +10,13 @@ trait PermissionTrait
     public function getAllPermissionsWithGroups()
     {
         $permissionArray = [];
-        $permissions = Permission::with('groups')->groupBy('group_id')->get();
+        $groups = Group::all();
     
-        foreach($permissions as $key => $value) {
+        foreach($groups as $key => $value) {
             $data = [];
-            $getPermissionGroup = Permission::where('group_id', $value->group_id)->get();
+            $getPermissionGroup = Permission::where('group_id', $value->id)->get();
             $data['id'] = $value->id;
-            $data['name'] = $value->groups->name;
+            $data['name'] = $value->name;
 
             $group = [];
             foreach($getPermissionGroup as $valueG) {

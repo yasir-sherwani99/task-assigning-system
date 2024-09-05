@@ -23,7 +23,7 @@
                     <h4 class="card-title">Todo Info</h4>
                 </div><!--end card-header-->
                 <div class="card-body">
-                    <form method="POST" class="needs-validation" action="{{ route('todos.store') }}" enctype="multipart/form-data" novalidate>
+                    <form method="POST" class="needs-validation" action="{{ route('todos.store') }}" id="form-validation-2" enctype="multipart/form-data" novalidate>
                         @csrf
                         <div class="row mb-3">
                             <div class="col-md-12">
@@ -71,7 +71,8 @@
 @endsection
 
 @section('script')
-    <script src="{{ asset('admin-assets/plugins/tinymce/tinymce.min.js') }}"></script>
+    <script src="{{ asset('assets/pages/form-validation.js') }}"></script>
+    <script src="{{ asset('assets/plugins/tinymce/tinymce.min.js') }}"></script>
     <script>
         tinymce.init({
             selector: '.tinymce_editor',

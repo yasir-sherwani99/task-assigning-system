@@ -301,7 +301,8 @@
 @endsection
 
 @section('script')
-    <script src="{{ asset('admin-assets/plugins/tinymce/tinymce.min.js') }}"></script>
+    <script src="{{ asset('assets/pages/form-validation.js') }}"></script>
+    <script src="{{ asset('assets/plugins/tinymce/tinymce.min.js') }}"></script>
     <script>
         tinymce.init({
             selector: '.tinymce_editor',

@@ -30,7 +30,7 @@
                                 <div class="fom-group">
                                     <label for="logo" class="form-label fw-bold">Project Logo</label>
                                     <img 
-                                        src="{{ asset('admin-assets/images/users/user-vector.png') }}" 
+                                        src="{{ asset('assets/images/users/user-vector.png') }}" 
                                         alt="babystore.ae" 
                                         class="thumb-lg rounded mx-3"
                                         id="logo" 
@@ -298,7 +298,8 @@
 @endsection
 
 @section('script')
-    <script src="{{ asset('admin-assets/plugins/tinymce/tinymce.min.js') }}"></script>
+    <script src="{{ asset('assets/pages/form-validation.js') }}"></script>
+    <script src="{{ asset('assets/plugins/tinymce/tinymce.min.js') }}"></script>
     <script>
         tinymce.init({
             selector: '.tinymce_editor',

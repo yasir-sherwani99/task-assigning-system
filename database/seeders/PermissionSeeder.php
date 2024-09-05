@@ -63,10 +63,6 @@ class PermissionSeeder extends Seeder
                 'group_id' => 2,
             ),
             array(
-                'name' => 'View Dashboard',
-                'group_id' => 1,
-            ),
-            array(
                 'name' => 'View Projects',
                 'group_id' => 3,
             ),
@@ -76,10 +72,6 @@ class PermissionSeeder extends Seeder
             ),
             array(
                 'name' => 'Edit Project',
-                'group_id' => 3,
-            ),
-            array(
-                'name' => 'Show Project',
                 'group_id' => 3,
             ),
             array(
@@ -99,10 +91,6 @@ class PermissionSeeder extends Seeder
                 'group_id' => 4,
             ),
             array(
-                'name' => 'Show Task',
-                'group_id' => 4,
-            ),
-            array(
                 'name' => 'Delete Task',
                 'group_id' => 4,
             ),
@@ -116,10 +104,6 @@ class PermissionSeeder extends Seeder
             ),
             array(
                 'name' => 'Edit Defect',
-                'group_id' => 5,
-            ),
-            array(
-                'name' => 'Show Defect',
                 'group_id' => 5,
             ),
             array(
@@ -192,10 +176,6 @@ class PermissionSeeder extends Seeder
             ),
             array(
                 'name' => 'Edit Todo',
-                'group_id' => 13,
-            ),
-            array(
-                'name' => 'Show Todo',
                 'group_id' => 13,
             ),
             array(

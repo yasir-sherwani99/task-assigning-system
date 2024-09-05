@@ -46,8 +46,8 @@
 @endsection
 
 @section('script')
-    <script src="{{ asset('admin-assets/plugins/lightpicker/litepicker.js') }}"></script>
-    <script src="{{ asset('admin-assets/plugins/apexcharts/apexcharts.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/lightpicker/litepicker.js') }}"></script>
+    <script src="{{ asset('assets/plugins/apexcharts/apexcharts.min.js') }}"></script>
     <script>
         //  Litepicker
         new Litepicker({ 

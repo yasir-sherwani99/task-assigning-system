@@ -208,7 +208,8 @@
 @endsection
 
 @section('script')
-    <script src="{{ asset('admin-assets/plugins/tinymce/tinymce.min.js') }}"></script>
+    <script src="{{ asset('assets/pages/form-validation.js') }}"></script>
+    <script src="{{ asset('assets/plugins/tinymce/tinymce.min.js') }}"></script>
     <script>
         tinymce.init({
             selector: '.tinymce_editor',
@@ -226,7 +227,7 @@
             content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
         });
     </script>
-    <script src="{{ asset('admin-assets/plugins/select/selectr.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/select/selectr.min.js') }}"></script>
     <script>
 
         let defaultMembers = "{{ $defaultMembers }}";

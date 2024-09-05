@@ -1,9 +1,10 @@
 /* Importing Bootstrap CSS */
-@import url('../../public/admin-assets/plugins/lightpicker/litepicker.css');
-@import url('../../public/admin-assets/css/bootstrap.min.css');
-@import url('../../public/admin-assets/css/icons.min.css');
-@import url('../../public/admin-assets/plugins/tabulator/bootstrap/tabulator_bootstrap4.css');
-@import url('../../public/admin-assets/plugins/sweet-alert2/sweetalert2.min.css');
-@import url('../../public/admin-assets/plugins/select/selectr.min.css');
-@import url('../../public/admin-assets/css/app.min.css');
-@import url('../../public/admin-assets/css/custom.css');
+@import url('../../public/assets/plugins/lightpicker/litepicker.css');
+@import url('../../public/assets/css/bootstrap.min.css');
+@import url('../../public/assets/css/icons.min.css');
+@import url('../../public/assets/plugins/tabulator/bootstrap/tabulator_bootstrap4.css');
+@import url('../../public/assets/plugins/sweet-alert2/sweetalert2.min.css');
+@import url('../../public/assets/plugins/select/selectr.min.css');
+@import url('../../public/assets/css/app.min.css');
+@import url('../../public/assets/css/custom.css');
+@import url('../../public/assets/plugins/fullcalendar/main.css');

@@ -30,11 +30,11 @@
                                 <div class="fom-group">
                                     <label for="avatar" class="form-label fw-bold">Photo</label>
                                     <img 
-                                        src="{{ asset('admin-assets/images/users/user-vector.png') }}" 
+                                        src="{{ asset('assets/images/users/user-vector.png') }}" 
                                         alt="babystore.ae." 
                                         class="thumb-lg rounded mx-3"
                                         id="avatar"
-                                        onerror="this.onerror=null;this.src='{{ asset('admin-assets/images/users/user-vector.png') }}'" 
+                                        onerror="this.onerror=null;this.src='{{ asset('assets/images/users/user-vector.png') }}'" 
                                     >
                                     <label class="btn btn-de-primary btn-sm text-light">
                                         Change Avatar 
@@ -245,6 +245,7 @@
 @endsection
 
 @section('script')
+    <script src="{{ asset('assets/pages/form-validation.js') }}"></script>
     <script>
         let imagePreview = function(event) {
             let newImage = event.target.files[0];

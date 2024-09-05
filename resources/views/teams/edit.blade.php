@@ -109,7 +109,8 @@
 @endsection
 
 @section('script')
-    <script src="{{ asset('admin-assets/plugins/select/selectr.min.js') }}"></script>
+    <script src="{{ asset('assets/pages/form-validation.js') }}"></script>
+    <script src="{{ asset('assets/plugins/select/selectr.min.js') }}"></script>
     <script>
         let selectedMembers = "{{ $selectedMembers }}";
         let selectedMemberss = JSON.parse(selectedMembers.replace(/&quot;/g, '"'));

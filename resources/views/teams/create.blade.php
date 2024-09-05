@@ -108,7 +108,8 @@
 @endsection
 
 @section('script')
-    <script src="{{ asset('admin-assets/plugins/select/selectr.min.js') }}"></script>
+    <script src="{{ asset('assets/pages/form-validation.js') }}"></script>
+    <script src="{{ asset('assets/plugins/select/selectr.min.js') }}"></script>
     <script>
         new Selectr('#members',{
             multiple: true,

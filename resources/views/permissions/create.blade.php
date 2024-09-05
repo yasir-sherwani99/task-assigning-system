@@ -74,4 +74,5 @@
 @endsection
 
 @section('script')
+    <script src="{{ asset('assets/pages/form-validation.js') }}"></script>
 @endsection

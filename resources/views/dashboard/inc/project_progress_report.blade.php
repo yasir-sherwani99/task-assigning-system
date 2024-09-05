@@ -20,7 +20,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="media mb-3">
-                                <img src="{{ asset('admin-assets/images/small/project-3.jpg') }}" alt="" class="thumb-md rounded-circle">                                      
+                                <img src="{{ asset('assets/images/small/project-3.jpg') }}" alt="" class="thumb-md rounded-circle">                                      
                                 <div class="media-body align-self-center text-truncate ms-3">                                                            
                                     <h4 class="m-0 fw-semibold text-dark font-16">Payment App</h4>   
                                     <p class="text-muted mb-0 font-13"><span class="text-dark">Client : </span>Kevin  J. Heal</p>                                         
@@ -57,16 +57,16 @@
                         <div class="d-flex justify-content-between">
                             <div class="img-group">
                                 <a class="user-avatar" href="#">
-                                    <img src="{{ asset('admin-assets/images/users/user-8.jpg') }}" alt="user" class="thumb-xs rounded-circle">
+                                    <img src="{{ asset('assets/images/users/user-8.jpg') }}" alt="user" class="thumb-xs rounded-circle">
                                 </a>
                                 <a class="user-avatar ms-n3" href="#">
-                                    <img src="{{ asset('admin-assets/images/users/user-5.jpg') }}" alt="user" class="thumb-xs rounded-circle">
+                                    <img src="{{ asset('assets/images/users/user-5.jpg') }}" alt="user" class="thumb-xs rounded-circle">
                                 </a>
                                 <a class="user-avatar ms-n3" href="#">
-                                    <img src="{{ asset('admin-assets/images/users/user-4.jpg') }}" alt="user" class="thumb-xs rounded-circle">
+                                    <img src="{{ asset('assets/images/users/user-4.jpg') }}" alt="user" class="thumb-xs rounded-circle">
                                 </a>
                                 <a class="user-avatar ms-n3" href="#">
-                                    <img src="{{ asset('admin-assets/images/users/user-6.jpg') }}" alt="user" class="thumb-xs rounded-circle">
+                                    <img src="{{ asset('assets/images/users/user-6.jpg') }}" alt="user" class="thumb-xs rounded-circle">
                                 </a>
                                 <a href="" class="btn btn-soft-primary btn-icon-circle btn-icon-circle-sm">
                                     <i class="las la-plus"></i>6
@@ -125,7 +125,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="media mb-3">
-                                <img src="{{ asset('admin-assets/images/small/project-2.jpg') }}" alt="" class="thumb-md rounded-circle">                                      
+                                <img src="{{ asset('assets/images/small/project-2.jpg') }}" alt="" class="thumb-md rounded-circle">                                      
                                 <div class="media-body align-self-center text-truncate ms-3">
                                     
                                     <h4 class="m-0 fw-semibold text-dark font-16">Banking</h4>   
@@ -163,16 +163,16 @@
                         <div class="d-flex justify-content-between">
                             <div class="img-group">
                                 <a class="user-avatar" href="#">
-                                    <img src="{{ asset('admin-assets/images/users/user-8.jpg') }}" alt="user" class="thumb-xs rounded-circle">
+                                    <img src="{{ asset('assets/images/users/user-8.jpg') }}" alt="user" class="thumb-xs rounded-circle">
                                 </a>
                                 <a class="user-avatar ms-n3" href="#">
-                                    <img src="{{ asset('admin-assets/images/users/user-5.jpg') }}" alt="user" class="thumb-xs rounded-circle">
+                                    <img src="{{ asset('assets/images/users/user-5.jpg') }}" alt="user" class="thumb-xs rounded-circle">
                                 </a>
                                 <a class="user-avatar ms-n3" href="#">
-                                    <img src="{{ asset('admin-assets/images/users/user-4.jpg') }}" alt="user" class="thumb-xs rounded-circle">
+                                    <img src="{{ asset('assets/images/users/user-4.jpg') }}" alt="user" class="thumb-xs rounded-circle">
                                 </a>
                                 <a class="user-avatar ms-n3" href="#">
-                                    <img src="{{ asset('admin-assets/images/users/user-6.jpg') }}" alt="user" class="thumb-xs rounded-circle">
+                                    <img src="{{ asset('assets/images/users/user-6.jpg') }}" alt="user" class="thumb-xs rounded-circle">
                                 </a>
                                 <a href="" class="btn btn-soft-primary btn-icon-circle btn-icon-circle-sm">
                                     <i class="las la-plus"></i>4
@@ -231,7 +231,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="media mb-3">
-                                <img src="{{ asset('admin-assets/images/small/project-1.jpg') }}" alt="" class="thumb-md rounded-circle">                                      
+                                <img src="{{ asset('assets/images/small/project-1.jpg') }}" alt="" class="thumb-md rounded-circle">                                      
                                 <div class="media-body align-self-center text-truncate ms-3">
                                     
                                     <h4 class="m-0 fw-semibold text-dark font-16">Transfer Money</h4>   
@@ -269,16 +269,16 @@
                         <div class="d-flex justify-content-between">
                             <div class="img-group">
                                 <a class="user-avatar" href="#">
-                                    <img src="{{ asset('admin-assets/images/users/user-8.jpg') }}" alt="user" class="thumb-xs rounded-circle">
+                                    <img src="{{ asset('assets/images/users/user-8.jpg') }}" alt="user" class="thumb-xs rounded-circle">
                                 </a>
                                 <a class="user-avatar ms-n3" href="#">
-                                    <img src="{{ asset('admin-assets/images/users/user-5.jpg') }}" alt="user" class="thumb-xs rounded-circle">
+                                    <img src="{{ asset('assets/images/users/user-5.jpg') }}" alt="user" class="thumb-xs rounded-circle">
                                 </a>
                                 <a class="user-avatar ms-n3" href="#">
-                                    <img src="{{ asset('admin-assets/images/users/user-4.jpg') }}" alt="user" class="thumb-xs rounded-circle">
+                                    <img src="{{ asset('assets/images/users/user-4.jpg') }}" alt="user" class="thumb-xs rounded-circle">
                                 </a>
                                 <a class="user-avatar ms-n3" href="#">
-                                    <img src="{{ asset('admin-assets/images/users/user-6.jpg') }}" alt="user" class="thumb-xs rounded-circle">
+                                    <img src="{{ asset('assets/images/users/user-6.jpg') }}" alt="user" class="thumb-xs rounded-circle">
                                 </a>
                                 <a href="" class="btn btn-soft-primary btn-icon-circle btn-icon-circle-sm">
                                     <i class="las la-plus"></i>2

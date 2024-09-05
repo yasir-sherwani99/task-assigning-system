@@ -35,7 +35,7 @@
 @endsection
 
 @section('script')
-    <script src="{{ asset('admin-assets/plugins/tabulator/tabulator.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/tabulator/tabulator.min.js') }}"></script>
     <script>
         let table = new Tabulator('#datatable-clients', {
             ajaxURL:"/clients-datatable",
@@ -100,7 +100,7 @@
                 });
         }
     </script>
-    <script src="{{ asset('admin-assets/plugins/sweet-alert2/sweetalert2.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/sweet-alert2/sweetalert2.min.js') }}"></script>
     <script>
         function deleteClient(clientId)
         {

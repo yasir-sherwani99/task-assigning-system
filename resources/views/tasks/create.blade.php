@@ -219,7 +219,7 @@
 @endsection
 
 @section('script')
-    <script src="{{ asset('admin-assets/plugins/tinymce/tinymce.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/tinymce/tinymce.min.js') }}"></script>
     <script>
         tinymce.init({
             selector: '.tinymce_editor',
@@ -237,7 +237,7 @@
             content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
         });
     </script>
-    <script src="{{ asset('admin-assets/plugins/select/selectr.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/select/selectr.min.js') }}"></script>
     <script>
         let selectr = new Selectr('#members',{
             multiple: true,
@@ -257,13 +257,9 @@
             })
             .then(res => res.json())
             .then(data => {
-            //    console.log(data)
                 let option = [];
                 if(data.data.members.length > 0) {
                     data.data.members.map((mem) => {
-                        // option += `<option value=${mem.id}>`;
-                        // option += mem.first_name + ' ' + mem.last_name;
-                        // option += "</option>";
                         let obj = {
                             value: mem.id,
                             text: mem.first_name + ' ' + mem.last_name
@@ -272,10 +268,8 @@
                         option.push(obj)
                     })
                 }
-              //  console.log(option)
 
                 selectr.add(option)
-             //   document.getElementById('members').innerHTML = option;
             })
             .catch(error => console.log(error))
         }

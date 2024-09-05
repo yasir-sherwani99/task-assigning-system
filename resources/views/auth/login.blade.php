@@ -28,3 +28,7 @@
         </div><!--end col-->
     </div><!--end row-->
 @endsection
+
+@section('script')
+    <script src="{{ asset('assets/pages/form-validation.js') }}"></script>
+@endsection

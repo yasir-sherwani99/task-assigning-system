@@ -25,7 +25,7 @@
             <div class="text-end">
                 <ul class="list-inline">
                     <li class="list-inline-item">
-                        <a href="{{ url('tasks?view=table') }}">
+                        <a href="{{ url('my-tasks?view=table') }}">
                             <button type="button" class="btn btn-outline-primary btn-sm">
                                 <i class="ti ti-table"></i>
                                 Table View
@@ -33,7 +33,7 @@
                         </a>
                     </li>
                     <li class="list-inline-item">
-                        <a href="{{ url('tasks?view=grid') }}">
+                        <a href="{{ url('my-tasks?view=grid') }}">
                             <button type="button" class="btn btn-outline-primary btn-sm">
                                 <i class="ti ti-grid-dots"></i>
                                 Grid View
@@ -104,7 +104,7 @@
     <script src="{{ asset('assets/plugins/tabulator/tabulator.min.js') }}"></script>
     <script>
         let table = new Tabulator('#datatable-tasks', {
-            ajaxURL:"/tasks-datatable",
+            ajaxURL:"/mytasks-datatable",
             layout:"fitColumns",      //fit columns to width of table
             responsiveLayout:"collapse",  //hide columns that dont fit on the table
             pagination:"local",       //paginate the data

@@ -3,16 +3,12 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-
 /*
 |--------------------------------------------------------------------------
-| User/Team Member
+| System
 |--------------------------------------------------------------------------
 |
-| The users routes
+| The system routes
 |
 */
 Auth::routes();
@@ -32,6 +28,7 @@ Route::middleware('auth')->group(function() {
     Route::delete('tasks2/{task}', [App\Http\Controllers\TaskController::class, 'destroy2']);
     Route::put('task/{task}/status', [App\Http\Controllers\TaskController::class, 'updateTaskStatus'])->name('tasks.status.update');
     Route::get('my-tasks', [App\Http\Controllers\TaskController::class, 'myTasksIndex'])->name('mytasks.index');
+    Route::get('mytasks-datatable', [App\Http\Controllers\TaskController::class, 'getMyTasks']);
     Route::put('task/{task}/progress', [App\Http\Controllers\TaskController::class, 'updateTaskProgress'])->name('tasks.progress.update');
     Route::resource('defects', App\Http\Controllers\DefectController::class);
     Route::get('defects-datatable', [App\Http\Controllers\DefectController::class, 'getDefects']);
