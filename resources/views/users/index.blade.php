@@ -56,7 +56,7 @@
     <script src="{{ asset('admin-assets/plugins/tabulator/tabulator.min.js') }}"></script>
     <script>
         let table = new Tabulator('#datatable-users', {
-            ajaxURL:"/getUsers",
+            ajaxURL:"/users-datatable",
             layout:"fitColumns",      //fit columns to width of table
             responsiveLayout:"collapse",  //hide columns that dont fit on the table
             pagination:"local",       //paginate the data

@@ -42,6 +42,7 @@ class NewMeetingNotification extends Notification
             'type' => 'new_meeting',
             'meeting_id' => $this->meeting->id,
             'icon' => 'ti ti-briefcase',
+            'title' => 'New Meeting',
             'message' => "You have been invited on team meeting on {$this->meeting->start_date} about {$this->meeting->title}."
         ];
     }

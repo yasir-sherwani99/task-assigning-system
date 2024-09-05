@@ -93,7 +93,7 @@
                                     id="client_id"
                                     required
                                 >
-                                    <option value="{{ $project->client_id }}">{{ $project->clients->first_name . ' ' . $project->clients->last_name }}</option>
+                                    <option value="{{ isset($project->clients) ? $project->client_id : '' }}">{{ isset($project->clients) ? $project->clients->first_name . ' ' . $project->clients->last_name : 'N/A' }}</option>
                                     @foreach($clients as $client)
                                         <option value="{{ $client->id }}">{{ $client->first_name . ' ' . $client->last_name }}</option>
                                     @endforeach
@@ -114,7 +114,7 @@
                                     onclick="getTeamMembers()"
                                     required
                                 >
-                                    <option value="{{ $project->team_id }}">{{ $project->teams->name }}</option>
+                                    <option value="{{ isset($project->teams) ? $project->team_id : '' }}">{{ isset($project->teams) ? $project->teams->name : 'N/A' }}</option>
                                     @foreach($teams as $team)
                                         <option value="{{ $team->id }}">{{ $team->name }}</option>
                                     @endforeach
@@ -160,7 +160,7 @@
                                     id="status"
                                     required
                                 >
-                                    <option value="{{ $project->status }}">{{ ucwords($project->status) }}</option>
+                                    <option value="{{ $project->status }}">{{ ucwords(Str::replace('_', ' ', $project->status)) }}</option>
                                     <option value="open">Open</option>
                                     <option value="in_progress">In Progress</option>
                                     <option value="on_hold">On Hold</option>

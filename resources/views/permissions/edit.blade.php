@@ -17,17 +17,17 @@
     @endif
 
     <div class="row">
-        <div class="col-lg-9">
+        <div class="col-lg-8">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Edit Permission</h4>
+                    <h4 class="card-title">Permission Info</h4>
                 </div><!--end card-header-->
                 <div class="card-body">
                     <form method="POST" class="needs-validation" action="{{ route('permissions.update', $permission->id) }}" enctype="multipart/form-data" novalidate>
                         @csrf
                         @method('put')
                         <div class="row mb-3">
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <label for="name" class="form-label fw-bold">Name <span class="text-danger">*</span></label>
                                 <input 
                                     type="text" 
@@ -40,6 +40,21 @@
                                 />
                                 <div class="invalid-feedback">
                                     Permission name is a required field.
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="slug" class="form-label fw-bold">Slug <span class="text-danger">*</span></label>
+                                <input 
+                                    type="text" 
+                                    class="form-control" 
+                                    id="slug" 
+                                    slug="slug"
+                                    placeholder="Enter permission slug"
+                                    value="{{ $permission->slug }}"
+                                    disabled
+                                />
+                                <div class="invalid-feedback">
+                                    Permission slug is a required field.
                                 </div>
                             </div>
                         </div>

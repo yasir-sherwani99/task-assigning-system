@@ -6,6 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use Illuminate\Support\Str;
 
 class MeetingStatusNotification extends Notification
 {
@@ -38,11 +39,14 @@ class MeetingStatusNotification extends Notification
      */
     public function toArray(object $notifiable): array
     {
+        $newStatus = ucwords(Str::replace('_', ' ', $this->meeting->status));
+
         return [
             'type' => 'meeting_status',
             'meeting_id' => $this->meeting->id,
             'icon' => 'ti ti-briefcase',
-            'message' => "The meeting {$this->meeting->title} status has been changed."
+            'title' => 'Meeting Status',
+            'message' => "The meeting {$this->meeting->title} status changed to {$newStatus}."
         ];
     }
 }

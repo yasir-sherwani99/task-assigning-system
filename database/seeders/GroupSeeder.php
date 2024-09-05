@@ -15,34 +15,60 @@ class GroupSeeder extends Seeder
     {
         $groups = array(
             array(
+                'id' => 1,
                 'name' => 'Dashboard'
             ),
             array(
-                'name' => 'User'
-            ),
-            array(
-                'name' => 'Role'
-            ),
-            array(
-                'name' => 'Project'
-            ),
-            array(
-                'name' => 'Task'
-            ),
-            array(
-                'name' => 'Settings'
-            ),
-            array(
-                'name' => 'Reports'
-            ),
-            array(
-                'name' => 'Permission'
-            ),
-            array(
+                'id' => 2,
                 'name' => 'Client'
             ),
             array(
+                'id' => 3,
+                'name' => 'Project'
+            ),
+            array(
+                'id' => 4,
+                'name' => 'Task'
+            ),
+            array(
+                'id' => 5,
                 'name' => 'Defect'
+            ),
+            array(
+                'id' => 6,
+                'name' => 'Meeting'
+            ),
+            array(
+                'id' => 7,
+                'name' => 'Appointment'
+            ),
+            array(
+                'id' => 8,
+                'name' => 'Reports'
+            ),
+            array(
+                'id' => 9,
+                'name' => 'User'
+            ),
+            array(
+                'id' => 10,
+                'name' => 'Team'
+            ),
+            array(
+                'id' => 11,
+                'name' => 'Role'
+            ),
+            array(
+                'id' => 12,
+                'name' => 'Permission'
+            ),
+            array(
+                'id' => 13,
+                'name' => 'Todo'
+            ),
+            array(
+                'id' => 14,
+                'name' => 'Settings'
             ),
         );
 
@@ -50,6 +76,8 @@ class GroupSeeder extends Seeder
             foreach($groups as $group) {
                 Group::updateOrCreate([
                     'name' => $group['name']
+                ],[
+                    'id' => $group['id']
                 ]);
             }
         }

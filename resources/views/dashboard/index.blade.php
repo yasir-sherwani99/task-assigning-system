@@ -4,22 +4,18 @@
 @endsection
 
 @section('content')
-    @role('admin')
-        <h4>Admin Dashboard</h4>
-    @endrole
     <div class="row justify-content-center">
         <div class="col-md-6 col-lg-3">
-            @include('dashboard.inc.stats_box', ['title' => 'Projects', 'count' => $stats['total_projects'], 'icon' => 'layers', 'in_progress' => $stats['projects_in_progress']]) 
+            @include('dashboard.inc.stats_box', ['title' => 'Projects', 'count' => $stats['total_projects'], 'icon' => 'layers', 'in_progress' => $stats['projects_in_progress'], 'over_due' => $stats['projects_over_due']]) 
         </div> <!--end col--> 
         <div class="col-md-6 col-lg-3">
-            @include('dashboard.inc.stats_box', ['title' => 'Tasks', 'count' => $stats['total_tasks'], 'icon' => 'check-square', 'in_progress' => $stats['tasks_in_progress']]) 
+            @include('dashboard.inc.stats_box', ['title' => 'Tasks', 'count' => $stats['total_tasks'], 'icon' => 'check-square', 'in_progress' => $stats['tasks_in_progress'], 'over_due' => $stats['tasks_over_due']]) 
         </div> <!--end col-->                         
         <div class="col-md-6 col-lg-3">
-            @include('dashboard.inc.stats_box', ['title' => 'Defects', 'count' => $stats['total_defects'], 'icon' => 'cpu', 'in_progress' => $stats['defects_in_progress']]) 
+            @include('dashboard.inc.stats_box', ['title' => 'Defects', 'count' => $stats['total_defects'], 'icon' => 'cpu', 'in_progress' => $stats['defects_in_progress'], 'over_due' => $stats['defects_over_due']]) 
         </div> <!--end col--> 
         <div class="col-md-6 col-lg-3">
-            @include('dashboard.inc.stats_box', ['title' => 'Clients', 'count' => $stats['total_clients'], 'icon' => 'clock'])
-            {{-- @include('dashboard.inc.stats_box', ['title' => 'Budget', 'count' => '$24100', 'icon' => 'dollar-sign'])  --}}
+            @include('dashboard.inc.stats_box', ['title' => 'Clients', 'count' => $stats['total_clients'], 'icon' => 'users', 'active_clients' => $stats['active_clients']])
         </div> <!--end col-->                               
     </div><!--end row-->
     <div class="row">
@@ -32,16 +28,20 @@
     </div><!--end row-->
     <div class="row">
         <div class="col-lg-4">
-            @include('dashboard.inc.task_performance_chart')
+            @include('dashboard.inc.project_performance_chart', ['projectPercentage' => $projectPercentage, 'startDate' => $startDate, 'endDate' => $endDate])
+        </div><!--end col-->
+        <div class="col-lg-4">
+            @include('dashboard.inc.task_performance_chart', ['taskPercentage' => $taskPercentage, 'startDate' => $startDate, 'endDate' => $endDate])
         </div> <!--end col--> 
         <div class="col-lg-4">
-            @include('dashboard.inc.project_performance_chart', ['projectPercentage' => $projectPercentage])
-            {{-- @include('dashboard.inc.project_progress_report') --}}
-        </div><!--end col-->
-        <div class="col-lg-4">
-            @include('dashboard.inc.defect_performance_chart', ['defectPercentage' => $defectPercentage])
+            @include('dashboard.inc.defect_performance_chart', ['defectPercentage' => $defectPercentage, 'startDate' => $startDate, 'endDate' => $endDate])
         </div><!--end col-->
     </div><!--end row-->
+    <div class="row"> 
+        <div class="col-lg-12">
+            @include('dashboard.inc.projects', ['latestProjects' => $latestProjects])
+        </div>
+    </div>
 
 @endsection
 
@@ -69,7 +69,7 @@
 
         var options = {
             chart: {
-                height: 225,
+                height: 300,
                 type: 'area',
                 stacked: true,
                 toolbar: {
@@ -77,7 +77,7 @@
                     autoSelected: 'zoom'
                 },
             },
-            colors: ['#2a77f4'],
+            colors: ['#2a77f4', '#ff9f43'],
             dataLabels: {
                 enabled: false
             },
@@ -153,37 +153,22 @@
         chart.render();
     </script>
     <script>
-        let taskCompleted = "{{ $taskPercentage['completed'] }}"; 
-        let taskInProgress = "{{ $taskPercentage['in_progress'] }}"; 
-        let taskOpen = "{{ $taskPercentage['open'] }}";
-        // Radial
+        var taskCompleted = "{{ $taskPercentage['completed'] }}"; 
+        var taskInProgress = "{{ $taskPercentage['in_progress'] }}"; 
+        var taskOpen = "{{ $taskPercentage['open'] }}";
+
         var options = {
+            series: [44, 55, 67, 83],
             chart: {
+                height: 310,
                 type: 'radialBar',
-                height: 295,
-                dropShadow: {
-                    enabled: true,
-                    top: 5,
-                    left: 0,
-                    bottom: 0,
-                    right: 0,
-                    blur: 5,
-                    color: '#45404a2e',
-                    opacity: 0.35
-                },
             },
             plotOptions: {
                 radialBar: {
-                    offsetY: -10,
-                    startAngle: 0,
-                    endAngle: 270,
                     hollow: {
-                        margin: 5,
-                        size: '50%',
+                        margin: 10,
+                        size: '55%',
                         background: 'transparent',  
-                    },
-                    track: {
-                        show: false,
                     },
                     dataLabels: {
                         name: {
@@ -193,9 +178,14 @@
                             fontSize: '16px',
                             color: '#50649c',
                         },
-                        
-                    }
-                },
+                        total: {
+                            show: false,
+                        },      
+                    },
+                    track: {
+                        show: true,
+                    },
+                }
             },
             colors: ["#1b9269","#ff9f43","#2a76f4"],
             stroke: {
@@ -210,6 +200,10 @@
                 offsetX: -10,
                 offsetY: 0,
             },
+            legend: {
+                show: true,
+                position: 'bottom',
+            },
             responsive: [{
                 breakpoint: 480,
                 options: {
@@ -222,19 +216,16 @@
                     }
                 }
             }]
-        }
+        };
 
-        var chart = new ApexCharts(
-            document.querySelector("#task_status"),
-            options
-        );
-
-        chart.render();
+        var chartTask = new ApexCharts(document.querySelector("#task_status"), options);
+        chartTask.render();
+    
     </script>
     <script>
-        let projCompleted = "{{ $projectPercentage['completed'] }}"; 
-        let projInProgress = "{{ $projectPercentage['in_progress'] }}"; 
-        let projOpen = "{{ $projectPercentage['open'] }}";
+        var projCompleted = "{{ $projectPercentage['completed'] }}"; 
+        var projInProgress = "{{ $projectPercentage['in_progress'] }}"; 
+        var projOpen = "{{ $projectPercentage['open'] }}";
 
         var options = {
             series: [44, 55, 67, 83],
@@ -297,141 +288,79 @@
             }]
         };
 
-        var chart = new ApexCharts(document.querySelector("#project_status"), options);
-        chart.render();
+        var chartProject = new ApexCharts(document.querySelector("#project_status"), options);
+        chartProject.render();
 
     </script>
     <script>
-        let defectSolved = "{{ $defectPercentage['solved'] }}"; 
-        let defectInProgress = "{{ $defectPercentage['in_progress'] }}"; 
-        let defectOpen = "{{ $defectPercentage['open'] }}";
-
+        var defectSolved = "{{ $defectPercentage['solved'] }}"; 
+        var defectInProgress = "{{ $defectPercentage['in_progress'] }}"; 
+        var defectOpen = "{{ $defectPercentage['open'] }}";
+    
         var options = {
+            series: [44, 55, 67, 83],
             chart: {
-                height: 305,
-                type: 'pie',
-                dropShadow: {
-                    enabled: true,
-                    top: 4,
-                    left: 0,
-                    bottom: 0,
-                    right: 0,
-                    blur: 2,
-                    color: '#45404a2e',
-                    opacity: 0.35
-                },
-            }, 
-            stroke: {
-                show: true,
-                width: 2,
-                colors: ['transparent']
+                height: 310,
+                type: 'radialBar',
             },
-            series: [defectSolved, defectOpen, defectInProgress],
-            labels: ["Solved", "Open", "In Progress"],
-            colors: ["#0abb87", "#7367f0", "#ff9f43"],
+            plotOptions: {
+                radialBar: {
+                    hollow: {
+                        margin: 10,
+                        size: '55%',
+                        background: 'transparent',  
+                    },
+                    dataLabels: {
+                        name: {
+                            fontSize: '18px',
+                        },
+                        value: {
+                            fontSize: '16px',
+                            color: '#50649c',
+                        },
+                        total: {
+                            show: false,
+                        },      
+                    },
+                    track: {
+                        show: true,
+                    },
+                }
+            },
+            colors: ["#1b9269","#ff9f43","#2a76f4"],
+            stroke: {
+                lineCap: 'round'
+            },
+            series: [defectSolved, defectInProgress, defectOpen],
+            labels: ['Solved', 'In Progress', 'Open'],
+            legend: {
+                show: true,
+                floating: true,
+                position: 'left',
+                offsetX: -10,
+                offsetY: 0,
+            },
             legend: {
                 show: true,
                 position: 'bottom',
-                horizontalAlign: 'center',
-                verticalAlign: 'middle',
-                floating: false,
-                fontSize: '14px',
-                offsetX: 0,
-                offsetY: 5
             },
             responsive: [{
-                breakpoint: 600,
+                breakpoint: 480,
                 options: {
-                    chart: {
-                        height: 240
-                    },
                     legend: {
-                        show: false
-                    },
+                        show: true,
+                        floating: true,
+                        position: 'left',
+                        offsetX: 10,
+                        offsetY: 0,
+                    }
                 }
             }]
-        }
+        };
 
-        var chartData = new ApexCharts(
-            document.querySelector("#defect_status"),
-            options
-        );
+        var chartDefect = new ApexCharts(document.querySelector("#defect_status"), options);
+        chartDefect.render();
 
-        chartData.render();
-        // Radial
-        // var options = {
-        //     chart: {
-        //         type: 'radialBar',
-        //         height: 295,
-        //         dropShadow: {
-        //             enabled: true,
-        //             top: 5,
-        //             left: 0,
-        //             bottom: 0,
-        //             right: 0,
-        //             blur: 5,
-        //             color: '#45404a2e',
-        //             opacity: 0.35
-        //         },
-        //     },
-        //     plotOptions: {
-        //         radialBar: {
-        //             offsetY: -10,
-        //             startAngle: 0,
-        //             endAngle: 270,
-        //             hollow: {
-        //                 margin: 5,
-        //                 size: '50%',
-        //                 background: 'transparent',  
-        //             },
-        //             track: {
-        //                 show: false,
-        //             },
-        //             dataLabels: {
-        //                 name: {
-        //                     fontSize: '18px',
-        //                 },
-        //                 value: {
-        //                     fontSize: '16px',
-        //                     color: '#50649c',
-        //                 },
-                        
-        //             }
-        //         },
-        //     },
-        //     colors: ["#1b9269","#ff9f43","#2a76f4"],
-        //     stroke: {
-        //         lineCap: 'round'
-        //     },
-        //     series: [defectSolved, defectInProgress, defectOpen],
-        //     labels: ['Solved', 'In Progress', 'Open'],
-        //     legend: {
-        //         show: true,
-        //         floating: true,
-        //         position: 'left',
-        //         offsetX: -10,
-        //         offsetY: 0,
-        //     },
-        //     responsive: [{
-        //         breakpoint: 480,
-        //         options: {
-        //             legend: {
-        //                 show: true,
-        //                 floating: true,
-        //                 position: 'left',
-        //                 offsetX: 10,
-        //                 offsetY: 0,
-        //             }
-        //         }
-        //     }]
-        // }
-
-        // var chart = new ApexCharts(
-        //     document.querySelector("#defect_status"),
-        //     options
-        // );
-
-        // chart.render();
     </script>
 @endsection
 

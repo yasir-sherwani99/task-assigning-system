@@ -20,10 +20,10 @@
     <div class="card-body">
         <div class="text-center">
             <div id="overview" class="apex-charts"></div>
-            <h6 class="text-primary bg-soft-primary p-3 mb-0">
+            <!-- <h6 class="text-primary bg-soft-primary p-3 mb-0">
                 <i data-feather="calendar" class="align-self-center icon-xs me-1"></i>
-                {{ $start_date }} to {{ $end_date }}
-            </h6>
+                {{-- $start_date --}} to {{-- $end_date --}}
+            </h6> -->
         </div>                                     
-    </div><!--end card-body--> 
+    </div>
 </div><!--end card-->

@@ -78,10 +78,15 @@ class User extends Authenticatable
     {
         return $this->hasOne(Project::class, 'assigned_to_id');
     }
-
+    
     public function task()
     {
-        return $this->hasOne(Task::class, 'assigned_to_id');
+        return $this->hasOne(Task::class, 'creator_id');
+    }
+
+    public function defect2()
+    {
+        return $this->hasOne(Defect::class, 'creator_id');
     }
 
     public function defect()
@@ -92,6 +97,21 @@ class User extends Authenticatable
     public function meetings()
     {
         return $this->belongsToMany(Meeting::class, 'meetings_members');
+    }
+
+    public function appointment()
+    {
+        return $this->hasOne(Appointment::class, 'organizer_id');
+    }
+
+    public function teams()
+    {
+        return $this->belongsToMany(Team::class, 'team_members');
+    }
+
+    public function tasks()
+    {
+        return $this->belongsToMany(Task::class, 'task_members');
     }
 
     /*

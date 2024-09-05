@@ -19,4 +19,24 @@ class Todo extends Model
         'due_date',
         'status'
     ];
+
+    /*
+    |---------------------------------------------------------------
+    | Scopes
+    |---------------------------------------------------------------
+    */
+    public function scopeSort($query, $value)
+    {
+        return $query->orderBy('created_at', $value);
+    }
+
+    public function scopeOpen($query)
+    {
+        return $query->where('status', 'open');
+    }
+
+    public function scopeCompleted($query)
+    {
+        return $query->where('status', 'completed');
+    }
 }

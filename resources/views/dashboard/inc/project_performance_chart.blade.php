@@ -13,7 +13,7 @@
         <div class="text-center">
             <h6 class="text-primary bg-soft-primary p-3 mb-0">
                 <i data-feather="calendar" class="align-self-center icon-xs me-1"></i>
-                01 January 2021 to 31 June 2021
+                {{ $startDate }} to {{ $endDate }}
             </h6>
         </div>
     </div><!--end card-body-->    

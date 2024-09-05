@@ -20,7 +20,7 @@
         <div class="col-lg-9">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Edit Roles & Permissions</h4>
+                    <h4 class="card-title">Roles & Permissions Info</h4>
                 </div><!--end card-header-->
                 <div class="card-body">
                     <form method="POST" class="needs-validation" action="{{ route('users.roles-permissions.update', $user->id) }}" enctype="multipart/form-data" novalidate>

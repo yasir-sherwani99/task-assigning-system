@@ -16,6 +16,7 @@ class Defect extends Model
      */
     protected $fillable = [
         'name',
+        'creator_id',
         'project_id',
         'start_date',
         'end_date',
@@ -33,6 +34,11 @@ class Defect extends Model
     | Relations
     |---------------------------------------------------------------
     */
+    public function createdby()
+    {
+        return $this->belongsTo(User::class, 'creator_id');
+    }
+    
     public function projects()
     {
         return $this->belongsTo(Project::class, 'project_id');

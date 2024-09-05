@@ -20,7 +20,7 @@ return new class extends Migration
             $table->dateTime('end_date');
             $table->string('location')->nullable();
             $table->text('notes')->nullable();
-            $table->enum('status', ['reserved', 'confirmed', 'finished', 'canceled'])->default('reserved');
+            $table->enum('status', ['reserved', 'confirmed', 'finished', 'cancel'])->default('reserved');
             $table->timestamps();
 
             $table->foreign('organizer_id')->references('id')->on('users');

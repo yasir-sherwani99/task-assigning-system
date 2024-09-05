@@ -4,9 +4,12 @@
     <nav class="navbar-custom" id="navbar-custom">    
         <ul class="list-unstyled topbar-nav float-end mb-0">
             <li class="dropdown notification-list">
-                <a class="nav-link nav-icon" href="#" role="button" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-original-title="ToDo">
+                <a class="nav-link nav-icon" href="{{ route('todos.index') }}" role="button" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-original-title="ToDo">
                     <i class="ti ti-checkbox"></i>
                 </a>
+            </li>
+            <li class="dropdown notification-list" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-original-title="Notifications">
+                @include('layouts.partials._notifications')
             </li>
             <li class="dropdown">
                 <a class="nav-link dropdown-toggle nav-user" data-bs-toggle="dropdown" href="#" role="button"
@@ -27,10 +30,10 @@
                     </div>
                 </a>
                 <div class="dropdown-menu dropdown-menu-end">
-                    <a class="dropdown-item" href="{{-- route('admins.edit', auth()->user()->id) --}}">
+                    <a class="dropdown-item" href="{{ route('users.edit', auth()->user()->id) }}">
                         <i class="ti ti-user font-16 me-1 align-text-bottom"></i> Edit Profile
                     </a>
-                    <a class="dropdown-item" href="{{-- route('password.create') --}}"><i class="ti ti-settings font-16 me-1 align-text-bottom"></i> Password</a>
+                    <a class="dropdown-item" href="{{ route('password.create') }}"><i class="ti ti-settings font-16 me-1 align-text-bottom"></i> Password</a>
                     <div class="dropdown-divider mb-0"></div>
                     <a 
                         class="dropdown-item" 

@@ -24,7 +24,8 @@ class TaskStoreRequest extends FormRequest
         return [
             'name' => 'required|string|max:191',
             'project_id' => 'required',
-            'assigned_to_id' => 'required',
+            'members' => 'required|array|min:1',
+        //    'assigned_to_id' => 'required',
             'status' => 'required|string',
             'priority' => 'required|string',
             'estimated_hours' => 'nullable',

@@ -1,0 +1,24 @@
+.preloader-wrap {
+    background: #fff none repeat scroll 0 0;
+    height: 100%;
+    position: fixed;
+    width: 100%;
+    z-index: 99999;
+    left: 0;
+    top: 0;
+    text-align: center;
+    transition: opacity ease 2s;
+}
+.d-table {
+    display: table;
+    width: 100%;
+    height: 100%;
+}
+.d-table .d-tablecell {
+    display: table-cell;
+    vertical-align: middle;
+}
+.tabulator .tabulator-header .tabulator-col .tabulator-col-content .tabulator-col-title{
+    white-space: normal;
+    text-overflow: clip;
+}

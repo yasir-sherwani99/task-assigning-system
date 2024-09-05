@@ -4,17 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\File;
-
-use Image;
 
 use App\Models\Client;
 use App\Traits\BreadcrumbTrait;
 use App\Http\Requests\ClientStoreRequest;
+use App\Traits\ImageTrait;
 
 class ClientController extends Controller
 {
-    use BreadcrumbTrait;
+    use BreadcrumbTrait, ImageTrait;
 
     /**
      * Display a listing of the resource.
@@ -90,18 +88,7 @@ class ClientController extends Controller
         if($request->hasFile('company_logo')) {
             $image = $request->file('company_logo');
             if($image instanceof UploadedFile) {
-                // image extension
-                $extension = $image->getClientOriginalExtension();
-                // destination path
-                $destinationPath = public_path('images/upload/clients');
-                // create image new name        
-                $imageName = 'client_' . time() . '.' . $extension;
-                // create image instanc and save
-                $imageFile = Image::make($image->getRealPath());
-                $imageFile->save($destinationPath . '/' . $imageName);
-                // get image url
-                $imageUrl = 'images/upload/clients/' . $imageName;
-
+                $imageUrl = $this->uploadImage($image, 'client', 'clients');
                 $client->company_logo = $imageUrl;
             } 
         }
@@ -167,23 +154,11 @@ class ClientController extends Controller
         if($request->hasFile('company_logo')) {
             $image = $request->file('company_logo');
             if($image instanceof UploadedFile) {
-                // delete previous image from folder
-                if (File::exists(public_path($client->company_logo))) {
-                    // delete image from storage
-                    File::delete($client->company_logo);
-                }
-                // image extension
-                $extension = $image->getClientOriginalExtension();
-                // destination path
-                $destinationPath = public_path('images/upload/clients');
-                // create image new name        
-                $imageName = 'client_' . time() . '.' . $extension;
-                // create image instanc and save
-                $imageFile = Image::make($image->getRealPath());
-                $imageFile->save($destinationPath . '/' . $imageName);
-                // get image url
-                $imageUrl = 'images/upload/clients/' . $imageName;
-
+                // delete previous image from folder/storage
+                $this->deleteImage($client->company_logo);
+                // upload image and return image path
+                $imageUrl = $this->uploadImage($image, 'client', 'clients');
+                
                 $client->company_logo = $imageUrl;
             } 
         }
@@ -200,6 +175,56 @@ class ClientController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $client = Client::find($id);
+        if(!isset($client) || empty($client)) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Woops! The requested resource was not found!'
+            ], 404);    
+        }
+
+        $client->delete();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Well done! Client deleted successfully.',
+            'client_id' => $id
+        ], 200);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function changeStatus($clientId)
+    {
+        $client = Client::find($clientId);
+        if(!isset($client) || empty($client)) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Woops! The requested resource was not found!'
+            ], 404);    
+        }
+
+        $client->status = $client->status == 'active' ? 'inactive' : 'active';
+        $client->update(); 
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Well done! Client status changed successfully.',
+            'client_id' => $clientId
+        ], 200);
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

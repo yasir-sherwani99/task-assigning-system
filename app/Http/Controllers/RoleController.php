@@ -6,12 +6,11 @@ use Illuminate\Http\Request;
 
 use App\Models\Role;
 use App\Traits\BreadcrumbTrait;
-use App\Traits\PermissionTrait;
 use App\Http\Requests\RoleStoreRequest;
 
 class RoleController extends Controller
 {
-    use BreadcrumbTrait, PermissionTrait;
+    use BreadcrumbTrait;
 
     /**
      * Display a listing of the resource.
@@ -32,14 +31,11 @@ class RoleController extends Controller
      */
     public function create()
     {
-        // get all permissions
-        $permissionArray = $this->getPermissions();
-
         // page title and breadcrumbs
         $breadcrumbs = $this->getPagebreadcrumbs("Role Create", "Roles", "Create");
         view()->share('breadcrumbs', $breadcrumbs);
 
-        return view('roles.create', compact('permissionArray'));
+        return view('roles.create');
     }
 
     /**
@@ -52,8 +48,6 @@ class RoleController extends Controller
         $role->name = $request->name;
 
         $role->save();
-
-        $role->permissions()->sync($request->permission_id);
 
         return redirect()->route('roles.index')
                          ->with('success', 'New role created successfully.');        
@@ -77,21 +71,11 @@ class RoleController extends Controller
     		abort(404);
     	}
 
-        $rolePermissions = [];
-         // get all permissions
-        $permissionArray = $this->getPermissions();
-        // get role permissions
-        if(count($role->permissions) > 0) {
-            foreach($role->permissions as $perm) {
-                $rolePermissions[] = $perm->id;
-            }
-        }
-
         // page title and breadcrumbs
         $breadcrumbs = $this->getPagebreadcrumbs("Role Edit", "Roles", "Edit");
         view()->share('breadcrumbs', $breadcrumbs);
 
-        return view('roles.edit', compact('role', 'permissionArray', 'rolePermissions'));
+        return view('roles.edit', compact('role'));
     }
 
     /**
@@ -100,8 +84,7 @@ class RoleController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'name' => 'required|string|max:191|unique:roles,name,' . $id,
-            'permission_id' => 'required|array|min:1'
+            'name' => 'required|string|max:191|unique:roles,name,' . $id
         ]);
 
         $role = Role::find($id);
@@ -112,8 +95,6 @@ class RoleController extends Controller
         $role->name = $request->name;
 
         $role->update();
-
-        $role->permissions()->sync($request->permission_id);
 
         return redirect()->route('roles.index')
                          ->with('success', 'Role updated successfully.');
@@ -129,9 +110,7 @@ class RoleController extends Controller
     		abort(404);
     	}
 
-        $role->permissions()->delete();
         $role->delete();
-    //    $role->permissions()->detach();
 
         return redirect()->route('roles.index')
                          ->with('success', 'Role deleted successfully');

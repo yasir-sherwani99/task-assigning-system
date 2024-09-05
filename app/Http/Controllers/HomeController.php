@@ -35,9 +35,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-      //  dd(auth()->user()->hasRole('admin'));
         $stats = [];
         $taskPercentage = [];
+        $startDate = now()->subMonths(12)->format('jS M Y');
+        $endDate = now()->format('jS M Y');
         // page title and breadcrumbs
         $breadcrumbs = $this->getPagebreadcrumbs("Dashboard", null, "Dashboard");
         view()->share('breadcrumbs', $breadcrumbs);
@@ -46,50 +47,71 @@ class HomeController extends Controller
         $projectOpenTotal = Project::open()->count();
         $projectInProgressTotal = Project::inProgress()->count();
         $projectCompletedTotal = Project::completed()->count();
+        $projectOverDueTotal = Project::whereDate('end_date', '<', now()->format('Y-m-d'))->where('status', '<>', 'completed')->count();
 
         $totalTasks = Task::count();
         $taskOpenTotal = Task::open()->count();
         $taskInProgressTotal = Task::inProgress()->count();
         $taskCompletedTotal = Task::completed()->count();
+        $taskOverDueTotal = Task::whereDate('end_date', '<', now()->format('Y-m-d'))->where('status', '<>', 'completed')->count();
 
         $totalDefects = Defect::count();
         $defectOpenTotal = Defect::open()->count();
         $defectInProgressTotal = Defect::inProgress()->count();
         $defectSolvedTotal = Defect::solved()->count();
+        $defectOverDueTotal = Defect::whereDate('end_date', '<', now()->format('Y-m-d'))->where('status', '<>', 'solved')->count();
 
         $stats['total_projects'] = $totalProjects;
         $stats['projects_in_progress'] = $projectInProgressTotal;
+        $stats['projects_over_due'] = $projectOverDueTotal;
         $stats['total_clients'] = Client::count();
+        $stats['active_clients'] = Client::active()->count();
         $stats['total_teams'] = Team::count();
         $stats['total_tasks'] = $totalTasks;
         $stats['tasks_in_progress'] = $taskInProgressTotal;
+        $stats['tasks_over_due'] = $taskOverDueTotal;
         $stats['total_defects'] = $totalDefects;
         $stats['defects_in_progress'] = $defectInProgressTotal;
+        $stats['defects_over_due'] = $defectOverDueTotal;
         $stats['total_users'] = User::count();
-        
-        // $taskPercentage['open'] = $totalTasks > 0 ? CustomHelper::calculatePercentage($taskOpenTotal, $totalTasks) : 0;
-        // $taskPercentage['in_progress'] = $totalTasks > 0 ? CustomHelper::calculatePercentage($taskInProgressTotal, $totalTasks) : 0;
-        // $taskPercentage['completed'] = $totalTasks > 0 ? CustomHelper::calculatePercentage($taskCompletedTotal, $totalTasks) : 0;
-        
-        $taskPercentage['open'] = 71;
-        $taskPercentage['in_progress'] = 63;
-        $taskPercentage['completed'] = 76;
 
-        $projectPercentage['open'] = $totalProjects > 0 ? CustomHelper::calculatePercentage($projectOpenTotal, $totalProjects) : 0;
-        $projectPercentage['in_progress'] = $totalProjects > 0 ? CustomHelper::calculatePercentage($projectInProgressTotal, $totalProjects) : 0;
-        $projectPercentage['completed'] = $totalProjects > 0 ? CustomHelper::calculatePercentage($projectCompletedTotal, $totalProjects) : 0;
+        //$startDate = now()->subMonths(12)
+        $totalTasks2 = Task::where('created_at', '>=', now()->subMonths(12))->count();
+        $taskOpenTotal2 = Task::open()->where('created_at', '>=', now()->subMonths(12))->count();
+        $taskInProgressTotal2 = Task::inProgress()->where('created_at', '>=', now()->subMonths(12))->count();
+        $taskCompletedTotal2 = Task::completed()->where('created_at', '>=', now()->subMonths(12))->count();
 
-        $defectPercentage['open'] = $totalDefects > 0 ? CustomHelper::calculatePercentage($defectOpenTotal, $totalDefects) : 0;
-        $defectPercentage['in_progress'] = $totalDefects > 0 ? CustomHelper::calculatePercentage($defectInProgressTotal, $totalDefects) : 0;
-        $defectPercentage['solved'] = $totalDefects > 0 ? CustomHelper::calculatePercentage($defectSolvedTotal, $totalDefects) : 0;
+        $taskPercentage['open'] = $totalTasks2 > 0 ? CustomHelper::calculatePercentage($taskOpenTotal2, $totalTasks2) : 0;
+        $taskPercentage['in_progress'] = $totalTasks2 > 0 ? CustomHelper::calculatePercentage($taskInProgressTotal2, $totalTasks2) : 0;
+        $taskPercentage['completed'] = $totalTasks2 > 0 ? CustomHelper::calculatePercentage($taskCompletedTotal2, $totalTasks2) : 0;
 
-        $graphData = $this->getGraphData();
-      //  dd($graphData);
+        $totalProjects2 = Project::where('created_at', '>=', now()->subMonths(12))->count();
+        $projectOpenTotal2 = Project::open()->where('created_at', '>=', now()->subMonths(12))->count();
+        $projectInProgressTotal2 = Project::inProgress()->where('created_at', '>=', now()->subMonths(12))->count();
+        $projectCompletedTotal2 = Project::completed()->where('created_at', '>=', now()->subMonths(12))->count();
 
-        return view('dashboard.index', compact('stats', 'taskPercentage', 'projectPercentage', 'defectPercentage', 'graphData'));
+        $projectPercentage['open'] = $totalProjects2 > 0 ? CustomHelper::calculatePercentage($projectOpenTotal2, $totalProjects2) : 0;
+        $projectPercentage['in_progress'] = $totalProjects2 > 0 ? CustomHelper::calculatePercentage($projectInProgressTotal2, $totalProjects2) : 0;
+        $projectPercentage['completed'] = $totalProjects2 > 0 ? CustomHelper::calculatePercentage($projectCompletedTotal2, $totalProjects2) : 0;
+
+        $totalDefects2 = Defect::where('created_at', '>=', now()->subMonths(12))->count();
+        $defectOpenTotal2 = Defect::open()->where('created_at', '>=', now()->subMonths(12))->count();
+        $defectInProgressTotal2 = Defect::inProgress()->where('created_at', '>=', now()->subMonths(12))->count();
+        $defectSolvedTotal2 = Defect::solved()->where('created_at', '>=', now()->subMonths(12))->count();
+
+        $defectPercentage['open'] = $totalDefects2 > 0 ? CustomHelper::calculatePercentage($defectOpenTotal2, $totalDefects2) : 0;
+        $defectPercentage['in_progress'] = $totalDefects2 > 0 ? CustomHelper::calculatePercentage($defectInProgressTotal2, $totalDefects2) : 0;
+        $defectPercentage['solved'] = $totalDefects2 > 0 ? CustomHelper::calculatePercentage($defectSolvedTotal2, $totalDefects2) : 0;
+
+        // get graph data of tasks and defects
+        $graphData = $this->getOverviewGraphData();
+        // get latest projects
+        $latestProjects = Project::latest()->take(10)->get();
+
+        return view('dashboard.index', compact('stats', 'taskPercentage', 'startDate', 'endDate', 'projectPercentage', 'defectPercentage', 'graphData', 'latestProjects'));
     }
 
-    public function getGraphData()
+    public function getOverviewGraphData()
     {
         $data = [];
         // last one year 

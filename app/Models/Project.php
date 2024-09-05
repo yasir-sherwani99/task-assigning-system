@@ -28,6 +28,7 @@ class Project extends Model
         'description',
         'billing_type',
         'estimated_hours',
+        'progress',
         'budget',
         'is_auto_progress',
         'image',

@@ -65,7 +65,7 @@
                         </div>
                         <div class="row mb-3">
                             <div class="col-md-6">
-                                <label for="assigned_to_id" class="form-label fw-bold">Assigned To <span class="text-danger">*</span></label>
+                                <!-- <label for="assigned_to_id" class="form-label fw-bold">Assigned To <span class="text-danger">*</span></label>
                                 <select 
                                     class="form-select" 
                                     aria-label="Select Client"
@@ -77,6 +77,19 @@
                                 </select>
                                 <div class="invalid-feedback">
                                     Assigned to is a required field.
+                                </div> -->
+                                <label for="members" class="form-label fw-bold">Assigned To <span class="text-danger">*</span></label>                                            
+                                <select 
+                                    class="form-select" 
+                                    aria-label="Select task members"
+                                    name="members[]"
+                                    id="members"
+                                    required
+                                >
+                                    <option value="">Select Assigned To</option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    Team members is a required field.
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -224,6 +237,13 @@
             content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
         });
     </script>
+    <script src="{{ asset('admin-assets/plugins/select/selectr.min.js') }}"></script>
+    <script>
+        let selectr = new Selectr('#members',{
+            multiple: true,
+            placeholder: 'Select Members...'
+        });
+    </script>
     <script>
         const getTeamMembers = () => {
             let csrf = "{{ csrf_token() }}";
@@ -237,16 +257,25 @@
             })
             .then(res => res.json())
             .then(data => {
-                let option = ''
+            //    console.log(data)
+                let option = [];
                 if(data.data.members.length > 0) {
                     data.data.members.map((mem) => {
-                        option += `<option value=${mem.id}>`;
-                        option += mem.first_name + ' ' + mem.last_name;
-                        option += "</option>";
+                        // option += `<option value=${mem.id}>`;
+                        // option += mem.first_name + ' ' + mem.last_name;
+                        // option += "</option>";
+                        let obj = {
+                            value: mem.id,
+                            text: mem.first_name + ' ' + mem.last_name
+                        };
+
+                        option.push(obj)
                     })
                 }
+              //  console.log(option)
 
-                document.getElementById('assigned_to_id').innerHTML = option;
+                selectr.add(option)
+             //   document.getElementById('members').innerHTML = option;
             })
             .catch(error => console.log(error))
         }

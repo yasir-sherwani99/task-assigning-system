@@ -2,6 +2,7 @@
 <html lang="en">
 @include('layouts.partials._head')
 <body id="body" class="light-sidebar menuitem-active">
+    @include('layouts.partials._loader')
     @include('layouts.partials._left_sidebar')
     @include('layouts.partials._topbar')
     <div class="page-wrapper">

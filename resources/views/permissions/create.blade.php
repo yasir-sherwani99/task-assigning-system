@@ -20,7 +20,7 @@
         <div class="col-lg-8">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Create Permission</h4>
+                    <h4 class="card-title">Permission Info</h4>
                 </div><!--end card-header-->
                 <div class="card-body">
                     <form method="POST" class="needs-validation" action="{{ route('permissions.store') }}" enctype="multipart/form-data" novalidate>

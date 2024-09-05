@@ -49,6 +49,11 @@ class Client extends Model
         return $this->hasOne(Meeting::class, 'client_id');
     }
 
+    public function appointment()
+    {
+        return $this->hasOne(Appointment::class, 'client_id');
+    }
+
     /*
     |---------------------------------------------------------------
     | Scopes
@@ -57,6 +62,11 @@ class Client extends Model
     public function scopeSort($query, $value)
     {
         return $query->orderBy('created_at', $value);
+    }
+
+    public function scopeActive($query)
+    {
+        return $query->where('status', 'active');
     }
 
     /*

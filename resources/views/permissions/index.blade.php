@@ -14,13 +14,8 @@
             <div class="card">
                 <div class="card-header">
                     <div class="row align-items-center">
-                        <div class="col-lg-6">                      
+                        <div class="col-lg-12">                      
                             <h4 class="card-title">Permissions List</h4>             
-                        </div><!--end col-->
-                        <div class="col-lg-6 text-end">
-                            <a href="{{ route('permissions.create') }}">
-                                <button type="button" class="btn btn-primary btn-sm">Add New Permission</button>
-                            </a>                         
                         </div><!--end col-->                                       
                     </div>  <!--end row-->                                  
                 </div><!--end card-header-->
@@ -30,9 +25,10 @@
                             <thead class="bg-light">
                                 <tr>
                                     <th class="text-center" style="width: 5%;">#</th>
-                                    <th style="width: 50%;">Permission Name</th>
-                                    <th style="width: 15%;">Group</th>
-                                    <th style="width: 15%;">Date</th>
+                                    <th style="width: 20%;">Permission Name</th>
+                                    <th style="width: 20%;">Slug</th>
+                                    <th style="width: 20%;">Group</th>
+                                    <th style="width: 20%;">Date</th>
                                     <th class="text-center" style="width: 15%;">Action</th>
                                 </tr>
                             </thead>
@@ -44,6 +40,7 @@
                                                 {{ $key + 1 }}
                                             </td>
                                             <td>{{ $permission->name }}</td>
+                                            <td>{{ $permission->slug }}</td>
                                             <td>{{ $permission->groups->name }}</td>
                                             <td>{{ $permission->created_at }}</td>
                                             <td class="text-center">     

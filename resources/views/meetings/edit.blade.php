@@ -20,7 +20,7 @@
         <div class="col-lg-9">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Edit Meeting</h4>
+                    <h4 class="card-title">Meeting Info</h4>
                 </div><!--end card-header-->
                 <div class="card-body">
                     <form method="POST" class="needs-validation" action="{{ route('meetings.update', $meeting->id) }}" enctype="multipart/form-data" novalidate>
@@ -84,7 +84,7 @@
                                     name="project_id"
                                     id="project_id"
                                 >
-                                    <option value="{{ isset($meeting->project_id) ? $meeting->project_id : '' }}">{{ isset($meeting->project_id) ? $meeting->projects->name : 'Select Project' }}</option>
+                                    <option value="{{ isset($meeting->projects) ? $meeting->project_id : '' }}">{{ isset($meeting->projects) ? $meeting->projects->name : 'Select Project' }}</option>
                                     @foreach($projects as $project)
                                         <option value="{{ $project->id }}">{{ $project->name }}</option>
                                     @endforeach
@@ -98,7 +98,7 @@
                                     name="client_id"
                                     id="client_id"
                                 >
-                                    <option value="{{ isset($meeting->client_id) ? $meeting->client_id : '' }}">{{ isset($meeting->client_id) ? $meeting->clients->first_name . ' ' . $meeting->clients->last_name : 'Select Client' }}</option>
+                                    <option value="{{ isset($meeting->clients) ? $meeting->client_id : '' }}">{{ isset($meeting->clients) ? $meeting->clients->first_name . ' ' . $meeting->clients->last_name : 'Select Client' }}</option>
                                     @foreach($clients as $client)
                                         <option value="{{ $client->id }}">{{ $client->first_name . ' ' . $client->last_name }}</option>
                                     @endforeach

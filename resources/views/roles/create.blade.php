@@ -20,7 +20,7 @@
         <div class="col-lg-9">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Create Role</h4>
+                    <h4 class="card-title">Role Info</h4>
                 </div><!--end card-header-->
                 <div class="card-body">
                     <form method="POST" class="needs-validation" action="{{ route('roles.store') }}" enctype="multipart/form-data" novalidate>
@@ -39,30 +39,6 @@
                                 <div class="invalid-feedback">
                                     Role name is a required field.
                                 </div>
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col-md-12">
-                                <label for="name" class="form-label fw-bold">Permission <span class="text-danger">*</span></label>
-                                @foreach($permissionArray as $permission)
-                                    <div class="row my-2">
-                                        <div class="col-md-3 fw-semibold">
-                                            {{ $permission['name'] }}
-                                        </div>
-                                        <div class="col-md-9">
-                                            <div class="row">
-                                                @foreach($permission['group'] as $group)
-                                                    <div class="col-md-3">
-                                                        <label class="form-label">
-                                                            <input type="checkbox" name="permission_id[]" value="{{ $group['id'] }}" class="me-1" /> {{ $group['name'] }}
-                                                        </label>
-                                                    </div>
-                                                @endforeach
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <hr />
-                                @endforeach
                             </div>
                         </div>
                         <div class="row">

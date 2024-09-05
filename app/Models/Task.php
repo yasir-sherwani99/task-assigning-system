@@ -16,11 +16,11 @@ class Task extends Model
      */
     protected $fillable = [
         'name',
+        'creator_id',
         'start_date',
         'end_date',
         'description',
         'project_id',
-        'assigned_to_id',
         'estimated_hours',
         'progress',
         'priority',
@@ -32,14 +32,19 @@ class Task extends Model
     | Relations
     |---------------------------------------------------------------
     */
+    public function createdby()
+    {
+        return $this->belongsTo(User::class, 'creator_id');
+    }
+
     public function projects()
     {
         return $this->belongsTo(Project::class, 'project_id');
     }
 
-    public function assigned()
+    public function members()
     {
-        return $this->belongsTo(User::class, 'assigned_to_id');
+        return $this->belongsToMany(User::class, 'task_members');
     }
 
     /*

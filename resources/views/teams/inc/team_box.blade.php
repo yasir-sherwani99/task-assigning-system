@@ -6,20 +6,23 @@
                     <i class="las la-ellipsis-v font-24 text-muted"></i>
                 </a>
                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dLabel1">
-                    <a class="dropdown-item" href="#">View Projects</a>
-                    <a class="dropdown-item" href="{{ route('teams.edit', $team->id) }}">Edit Team</a> 
-                    <form 
-                        action="{{ route('teams.destroy', $team->id) }}" 
-                        method="post"
-                        onsubmit="return confirm('Are you sure?');"
-                    >                             
-                        @csrf
-                        @method('delete')
-                        
-                        <button type="submit" class="border-0 bg-transparent dropdown-item">
-                            Delete team
-                        </button>
-                    </form>
+                    @permission('edit-team')
+                        <a class="dropdown-item" href="{{ route('teams.edit', $team->id) }}">Edit Team</a> 
+                    @endpermission
+                    @permission('delete-team')
+                        <form 
+                            action="{{ route('teams.destroy', $team->id) }}" 
+                            method="post"
+                            onsubmit="return confirm('Are you sure?');"
+                        >                             
+                            @csrf
+                            @method('delete')
+                            
+                            <button type="submit" class="border-0 bg-transparent dropdown-item">
+                                Delete team
+                            </button>
+                        </form>
+                    @endpermission
                 </div>
             </div>
         </div>                                                 
@@ -40,7 +43,7 @@
             <p class="text-muted mb-0">{{ Str::limit($team->description, 100) }}</p>
         @endif
         <div class="mt-3 d-flex justify-content-between">
-            @include('common.team_members_section', ['teamMembers' => $team->member])  
+            @include('common.team_members_section', ['teamMembers' => $team->members])  
             <div class="align-self-center">
                 <button type="button" class="btn btn-xs btn-light btn-round">View Details <i class="mdi mdi-arrow-right"></i></button>
             </div> 

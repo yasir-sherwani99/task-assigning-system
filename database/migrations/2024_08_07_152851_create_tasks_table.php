@@ -18,7 +18,6 @@ return new class extends Migration
             $table->date('end_date');
             $table->text('description')->nullable();
             $table->unsignedBigInteger('project_id')->nullable();
-            $table->unsignedBigInteger('assigned_to_id')->nullable();
             $table->string('estimated_hours')->nullable();
             $table->integer('progress')->default(0);
             $table->enum('priority', ['urgent','very_high','high','medium','low'])->default('medium');
@@ -26,7 +25,6 @@ return new class extends Migration
             $table->timestamps();
 
             $table->foreign('project_id')->references('id')->on('projects');
-            $table->foreign('assigned_to_id')->references('id')->on('users');
         });
     }
 

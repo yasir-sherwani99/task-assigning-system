@@ -20,7 +20,7 @@
         <div class="col-lg-9">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Create Meeting</h4>
+                    <h4 class="card-title">Meeting Info</h4>
                 </div><!--end card-header-->
                 <div class="card-body">
                     <form method="POST" class="needs-validation" action="{{ route('meetings.store') }}" enctype="multipart/form-data" novalidate>

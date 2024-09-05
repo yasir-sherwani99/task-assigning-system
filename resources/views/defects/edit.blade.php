@@ -164,7 +164,7 @@
                                     required
                                 >
                                     <option value="{{ $defect->assigned_to_id }}">{{ $defect->assigned->first_name . ' ' . $defect->assigned->last_name }}</option>
-                                    @foreach($defect->teams->member as $member)
+                                    @foreach($defect->teams->members as $member)
                                         <option value="{{ $member->id }}">{{ $member->first_name . ' ' . $member->last_name }}</option>
                                     @endforeach
                                 </select>

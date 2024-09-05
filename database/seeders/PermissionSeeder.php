@@ -13,100 +13,211 @@ class PermissionSeeder extends Seeder
      */
     public function run(): void
     {
-        $roles = array(
+        $permissions = array(
             array(
-                'name' => 'View Role'
+                'name' => 'View Roles',
+                'group_id' => 11,
             ),
             array(
-                'name' => 'Create Role'
+                'name' => 'Edit Role',
+                'group_id' => 11,
             ),
             array(
-                'name' => 'Edit Role'
+                'name' => 'View Permissions',
+                'group_id' => 12,
             ),
             array(
-                'name' => 'Delete Role'
+                'name' => 'Edit Permission',
+                'group_id' => 12,
             ),
             array(
-                'name' => 'View Permission'
+                'name' => 'View Users',
+                'group_id' => 9,
             ),
             array(
-                'name' => 'Create Permission'
+                'name' => 'Create User',
+                'group_id' => 9,
             ),
             array(
-                'name' => 'Edit Permission'
+                'name' => 'Edit User',
+                'group_id' => 9,
             ),
             array(
-                'name' => 'Delete Permission'
+                'name' => 'Delete User',
+                'group_id' => 9,
             ),
             array(
-                'name' => 'View Admin'
+                'name' => 'View Clients',
+                'group_id' => 2,
             ),
             array(
-                'name' => 'Create Admin'
+                'name' => 'Create Client',
+                'group_id' => 2,
             ),
             array(
-                'name' => 'Edit Admin'
+                'name' => 'Edit Client',
+                'group_id' => 2,
             ),
             array(
-                'name' => 'Delete Admin'
+                'name' => 'Delete Client',
+                'group_id' => 2,
             ),
             array(
-                'name' => 'View Manager'
+                'name' => 'View Dashboard',
+                'group_id' => 1,
             ),
             array(
-                'name' => 'Create Manager'
+                'name' => 'View Projects',
+                'group_id' => 3,
             ),
             array(
-                'name' => 'Edit Manager'
+                'name' => 'Create Project',
+                'group_id' => 3,
             ),
             array(
-                'name' => 'Delete Manager'
+                'name' => 'Edit Project',
+                'group_id' => 3,
             ),
             array(
-                'name' => 'View Team Member'
+                'name' => 'Show Project',
+                'group_id' => 3,
             ),
             array(
-                'name' => 'Create Team Member'
+                'name' => 'Delete Project',
+                'group_id' => 3,
             ),
             array(
-                'name' => 'Edit Team Member'
+                'name' => 'View Tasks',
+                'group_id' => 4,
             ),
             array(
-                'name' => 'Delete Team Member'
+                'name' => 'Create Task',
+                'group_id' => 4,
             ),
             array(
-                'name' => 'View Dasboard'
+                'name' => 'Edit Task',
+                'group_id' => 4,
             ),
             array(
-                'name' => 'View Project'
+                'name' => 'Show Task',
+                'group_id' => 4,
             ),
             array(
-                'name' => 'Create Project'
+                'name' => 'Delete Task',
+                'group_id' => 4,
             ),
             array(
-                'name' => 'Edit Project'
+                'name' => 'View Defects',
+                'group_id' => 5,
             ),
             array(
-                'name' => 'Delete Project'
+                'name' => 'Create Defect',
+                'group_id' => 5,
             ),
             array(
-                'name' => 'View Task'
+                'name' => 'Edit Defect',
+                'group_id' => 5,
             ),
             array(
-                'name' => 'Create Task'
+                'name' => 'Show Defect',
+                'group_id' => 5,
             ),
             array(
-                'name' => 'Edit Task'
+                'name' => 'Delete Defect',
+                'group_id' => 5,
             ),
             array(
-                'name' => 'Delete Task'
+                'name' => 'View Meetings',
+                'group_id' => 6,
+            ),
+            array(
+                'name' => 'Create Meeting',
+                'group_id' => 6,
+            ),
+            array(
+                'name' => 'Edit Meeting',
+                'group_id' => 6,
+            ),
+            array(
+                'name' => 'Delete Meeting',
+                'group_id' => 6,
+            ),
+            array(
+                'name' => 'View Appointments',
+                'group_id' => 7,
+            ),
+            array(
+                'name' => 'Create Appointment',
+                'group_id' => 7,
+            ),
+            array(
+                'name' => 'Edit Appointment',
+                'group_id' => 7,
+            ),
+            array(
+                'name' => 'Delete Appointment',
+                'group_id' => 7,
+            ),
+            array(
+                'name' => 'View Teams',
+                'group_id' => 10,
+            ),
+            array(
+                'name' => 'Create Team',
+                'group_id' => 10,
+            ),
+            array(
+                'name' => 'Edit Team',
+                'group_id' => 10,
+            ),
+            array(
+                'name' => 'Delete Team',
+                'group_id' => 10,
+            ),
+            array(
+                'name' => 'View Reports',
+                'group_id' => 8,
+            ),
+            array(
+                'name' => 'Download Reports',
+                'group_id' => 8,
+            ),
+            array(
+                'name' => 'View Todos',
+                'group_id' => 13,
+            ),
+            array(
+                'name' => 'Create Todo',
+                'group_id' => 13,
+            ),
+            array(
+                'name' => 'Edit Todo',
+                'group_id' => 13,
+            ),
+            array(
+                'name' => 'Show Todo',
+                'group_id' => 13,
+            ),
+            array(
+                'name' => 'Delete Todo',
+                'group_id' => 13,
+            ),
+            array(
+                'name' => 'View Settings',
+                'group_id' => 14,
+            ),
+            array(
+                'name' => 'Edit Settings',
+                'group_id' => 14,
             ),
         );
 
-        if(count($roles) > 0) {
-            foreach($roles as $role) {
+        if(count($permissions) > 0) {
+            foreach($permissions as $permission) {
                 Permission::updateOrCreate([
-                    'name' => $role['name']
+                    'name' => $permission['name']
+                ],[
+                    'group_id' => $permission['group_id']
                 ]);
             }
         }

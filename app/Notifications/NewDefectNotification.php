@@ -42,7 +42,8 @@ class NewDefectNotification extends Notification
             'type' => 'new_defect',
             'defect_id' => $this->defect->id,
             'icon' => 'ti ti-bug',
-            'message' => "New defect for project {$this->defect->projects->name} assigned to you."
+            'title' => 'New Defect',
+            'message' => "A new defect {$this->defect->name} of type {$this->defect->type} is created and assigned to {$this->defect->teams->name}." 
         ];
     }
 }

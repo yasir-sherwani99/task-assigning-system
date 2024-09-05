@@ -54,7 +54,7 @@
                                     onclick="getTeamMembers()"
                                     required
                                 >
-                                    <option value="{{ $task->project_id }}">{{ $task->projects->name }}</option>
+                                    <option value="{{ isset($task->projects) ? $task->project_id : '' }}">{{ isset($task->projects) ? $task->projects->name : 'N/A' }}</option>
                                     @foreach($projects as $project)
                                         <option value="{{ $project->id }}">{{ $project->name }}</option>
                                     @endforeach
@@ -66,18 +66,16 @@
                         </div>
                         <div class="row mb-3">
                             <div class="col-md-6">
-                                <label for="assigned_to_id" class="form-label fw-bold">Assigned To <span class="text-danger">*</span></label>
+                                <label for="members" class="form-label fw-bold">Assigned To <span class="text-danger">*</span></label>
                                 <select 
                                     class="form-select" 
-                                    aria-label="Select Client"
-                                    name="assigned_to_id"
-                                    id="assigned_to_id"
+                                    aria-label="Select task members"
+                                    name="members[]"
+                                    id="members"
                                     required
                                 >
-                                    <option value="{{ $task->assigned_to_id }}">{{ $task->assigned->first_name . ' ' . $task->assigned->last_name }}</option>
-                                    @foreach($task->projects->teams->member as $member)
-                                        <option value="{{ $member->id }}">{{ $member->first_name . ' ' . $member->last_name }}</option>
-                                    @endforeach
+                                    
+                                    
                                 </select>
                                 <div class="invalid-feedback">
                                     Assigned to is a required field.
@@ -115,7 +113,7 @@
                                     id="priority"
                                     required
                                 >
-                                    <option value="{{ $task->priority }}">{{ ucwords($task->priority) }}</option>
+                                    <option value="{{ $task->priority }}">{{ ucwords(Str::replace('_', ' ', $task->priority)) }}</option>
                                     <option value="urgent">Urgent</option>
                                     <option value="very_high">Very High</option>
                                     <option value="high">High</option>
@@ -228,10 +226,28 @@
             content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
         });
     </script>
+    <script src="{{ asset('admin-assets/plugins/select/selectr.min.js') }}"></script>
+    <script>
+
+        let defaultMembers = "{{ $defaultMembers }}";
+        let defaultMemberss = JSON.parse(defaultMembers.replace(/&quot;/g, '"'));
+
+        let selectedMembers = "{{ $selectedMembers }}";
+        let selectedMemberss = JSON.parse(selectedMembers.replace(/&quot;/g, '"'));
+
+        let selectr = new Selectr('#members',{
+            multiple: true,
+            placeholder: 'Select Team Members...',
+            data: defaultMemberss
+        });
+
+        selectr.setValue(selectedMemberss)
+    </script>
     <script>
         const getTeamMembers = () => {
             let csrf = "{{ csrf_token() }}";
             let projectId = document.getElementById('project_id').value;
+            console.log(projectId)
             fetch(`/project/${projectId}/team-members`, {
                 method: 'GET',
                 headers: {
@@ -241,16 +257,23 @@
             })
             .then(res => res.json())
             .then(data => {
-                let option = ''
+                console.log(data)
+                let option = [];
                 if(data.data.members.length > 0) {
                     data.data.members.map((mem) => {
-                        option += `<option value=${mem.id}>`;
-                        option += mem.first_name + ' ' + mem.last_name;
-                        option += "</option>";
+                        let obj = {
+                            value: mem.id,
+                            text: mem.first_name + ' ' + mem.last_name
+                        };
+
+                        option.push(obj)
                     })
                 }
 
-                document.getElementById('assigned_to_id').innerHTML = option;
+                selectr.clear();
+                selectr.reset();
+                selectr.removeAll();
+                selectr.add(option);
             })
             .catch(error => console.log(error))
         }

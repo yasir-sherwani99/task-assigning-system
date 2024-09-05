@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Carbon;
 // use Illuminate\Support\Str;
 
 use App\Models\User;
@@ -14,7 +15,6 @@ use App\Notifications\MeetingStatusNotification;
 use App\Notifications\NewMeetingNotification;
 use App\Traits\BreadcrumbTrait;
 use App\Http\Requests\MeetingStoreRequest;
-// use Carbon\Carbon;
 
 class MeetingController extends Controller
 {
@@ -34,7 +34,7 @@ class MeetingController extends Controller
         $stats = [];
         $meetingData = [];
         $meetingWrapper = [];
-        $meetings = Meeting::sort('desc')->paginate(10);
+        $meetings = Meeting::sort('desc')->get();
 
         $stats['total_meetings'] = Meeting::count();
         $stats['open_meetings'] = Meeting::open()->count();
@@ -73,6 +73,50 @@ class MeetingController extends Controller
         view()->share('breadcrumbs', $breadcrumbs);
 
         return view('meetings.index', compact('meetings', 'stats', 'view', 'meetingCalendarData'));
+    }
+
+    public function getMeetings()
+    {
+        $meetingArray = [];
+        $meetings = Meeting::with(['projects','clients','members'])->sort('desc')->get();
+        
+        if(count($meetings) > 0) {
+            foreach($meetings as $meeting) {
+                $clientName = isset($meeting->clients) ? $meeting->clients->first_name . ' ' . $meeting->clients->last_name : "Client N/A";
+                $meetingName = "<div class='media'><div class='media-body align-self-center text-truncate'><h6 class='mt-0 mb-1 link-primary'>{$meeting->title}</h6><p class='mb-0'><b>Client</b>: {$clientName}</p></div></div>";
+                $meetingMembers = "";
+                if(isset($meeting->members)) {
+                    $meetingMembers .= "<div class=\"img-group\">";
+                    foreach($meeting->members as $key => $member) {
+                        $username = $member->first_name . ' ' . $member->last_name;
+                        if($key < 4) {
+                            $image = asset($member->photo);
+                            $meetingMembers .= "<a href=\"#\" class=\"user-avatar\" data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" title=\"{$username}\">";
+                            $meetingMembers .= "<img src=\"{$image}\" alt=\"{$member->first_name}\" class=\"thumb-xs rounded-circle\" />";
+                            $meetingMembers .= "</a>";
+                        }
+                    }
+                    if(count($meeting->members) > 4) {
+                        $remaingmeetingMembers = count($meeting->members) - 4;
+                        $meetingMembers .= "<a href=\"#\" class=\"user-avatar\">";
+                        $meetingMembers .= "<span class=\"thumb-xs justify-content-center d-flex align-items-center bg-soft-info rounded-circle fw-semibold\">+{$remaingmeetingMembers}</span>";
+                        $meetingMembers .= "</a>";
+                    }
+                    $meetingMembers .= "</div>";
+                }
+
+                $meetingArray[] = [
+                    'id' => $meeting->id,
+                    'name' => $meetingName, 
+                    'start_date' => Carbon::parse($meeting->start_date)->toDayDateTimeString(),
+                    'assigned' => $meetingMembers,
+                    'status' => $meeting->status,
+                    'action' =>  $meeting->id
+                ];
+            }
+        }
+
+        return json_encode($meetingArray);        
     }
 
     /**
@@ -141,7 +185,7 @@ class MeetingController extends Controller
     		abort(404);
     	}
 
-        if(count($meeting->members) > 0) {
+        if(isset($meeting->members) && count($meeting->members) > 0) {
             foreach($meeting->members as $member) {
                $meetingMembers[] = (string) $member->id;
             }
@@ -193,27 +237,37 @@ class MeetingController extends Controller
     {
         $meeting = Meeting::find($id);
     	if(!isset($meeting) || empty($meeting)) {
-    		abort(404);
+    		return response()->json([
+                'success' => false,
+                'message' => 'Woops! The requested resource was not found!'
+            ], 404);
     	}
 
         $meeting->members()->sync([]);
-
         $meeting->delete();
 
-        return redirect()->route('meetings.index')
-                         ->with('success', 'Meeting deleted successfully');
+        return response()->json([
+            'success' => true,
+            'message' => 'Well done! Meeting deleted successfully.',
+            'meeting_id' => $id
+        ], 200);  
     }
 
+    /**
+     * Update the specified resource in storage.
+     */
     public function changeMeetingStatus(Request $request, $meetingId)
     {
         $memberIds = [];
         $meeting = Meeting::with('members')->find($meetingId);
     	if(!isset($meeting) || empty($meeting)) {
-    		abort(404);
+    		return response()->json([
+                'success' => false,
+                'message' => 'Woops! The requested resource was not found!'
+            ], 404);
     	}
 
         $meeting->status = $request->status;
-
         $meeting->update();
         
         if(count($meeting->members) > 0) {
@@ -229,7 +283,9 @@ class MeetingController extends Controller
             Notification::send($members, new MeetingStatusNotification($meeting));
         }
 
-        return redirect()->route('meetings.index')
-                         ->with('success', 'Meeting status updated successfully');        
+        return response()->json([
+            'success' => true,
+            'message' => 'Well done! Meeting status updated successfully.'
+        ], 200);    
     }
 }

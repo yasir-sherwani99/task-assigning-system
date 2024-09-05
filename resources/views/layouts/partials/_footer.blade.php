@@ -4,7 +4,7 @@
     <script>
         document.write(new Date().getFullYear())
     </script> 
-    J1 Door Company
+    babystore
     <a href="https://skyitservices.com/" target="_blank">
         <span class="text-muted d-none d-sm-inline-block float-end">
             Sky IT Services

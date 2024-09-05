@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 
 use App\Models\Team;
 use App\Models\User;
@@ -16,14 +17,64 @@ class TeamController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $teams = Team::with(['member','leader'])->sort('desc')->get();
+        if($request->input('view') !== null) {
+            $view = $request->input('view');
+        } else {
+            $view = null;
+        }
 
+        $teams = Team::with(['members','leader'])->sort('desc')->paginate(9);
+        
         $breadcrumbs = $this->getPagebreadcrumbs("Team List", "Teams", "List");
         view()->share('breadcrumbs', $breadcrumbs);
 
-        return view('teams.index', compact('teams'));
+        return view('teams.index', compact('view', 'teams'));
+    }
+
+     /**
+     * Display a listing of the resource.
+     */
+    public function getTeams()
+    {
+        $teamArray = [];
+        $teams = Team::with(['members', 'leader'])->sort('desc')->get();
+        
+        if(count($teams) > 0) {
+            foreach($teams as $team) {
+                $teamMembers = "";
+                if(isset($team->members)) {
+                    $teamMembers .= "<div class=\"img-group\">";
+                    foreach($team->members as $key => $member) {
+                        $username = $member->first_name . ' ' . $member->last_name;
+                        if($key < 4) {
+                            $image = asset($member->photo);
+                            $teamMembers .= "<a href=\"#\" class=\"user-avatar\" data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" title=\"{$username}\">";
+                            $teamMembers .= "<img src=\"{$image}\" alt=\"{$member->first_name}\" class=\"thumb-xs rounded-circle\" />";
+                            $teamMembers .= "</a>";
+                        }
+                    }
+                    if(count($team->members) > 4) {
+                        $remaingTeamMembers = count($team->members) - 4;
+                        $teamMembers .= "<a href=\"#\" class=\"user-avatar\">";
+                        $teamMembers .= "<span class=\"thumb-xs justify-content-center d-flex align-items-center bg-soft-info rounded-circle fw-semibold\">+{$remaingTeamMembers}</span>";
+                        $teamMembers .= "</a>";
+                    }
+                    $teamMembers .= "</div>";
+                }
+
+                $teamArray[] = [
+                    'id' => $team->id,
+                    'name' => $team->name, 
+                    'leader' => $team->leader->first_name . ' ' . $team->leader->last_name,
+                    'members' => $teamMembers,
+                    'action' =>  $team->id
+                ];
+            }
+        }
+
+        return json_encode($teamArray);
     }
 
     /**
@@ -52,7 +103,7 @@ class TeamController extends Controller
 
         $team->save();
         // store team members
-        $team->member()->sync($request->members);
+        $team->members()->sync($request->members);
 
         return redirect()->route('teams.index')
                          ->with('success', 'New team created successfully');
@@ -72,13 +123,13 @@ class TeamController extends Controller
     public function edit(string $id)
     {
         $selectedMembers = [];
-        $team = Team::with(['member','leader'])->find($id);
+        $team = Team::with(['members','leader'])->find($id);
         if(!isset($team) || empty($team)) {
     		abort(404);
     	}
 
-        if(count($team->member) > 0) {
-            foreach($team->member as $member) {
+        if(count($team->members) > 0) {
+            foreach($team->members as $member) {
                $selectedMembers[] = (string) $member->id;
             }
         }
@@ -98,7 +149,7 @@ class TeamController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $team = Team::with('member')->find($id);
+        $team = Team::with('members')->find($id);
         if(!isset($team) || empty($team)) {
     		abort(404);
     	}
@@ -109,7 +160,7 @@ class TeamController extends Controller
 
         $team->update();
         // update team members
-        $team->member()->sync($request->members);
+        $team->members()->sync($request->members);
 
         return redirect()->route('teams.index')
                          ->with('success', 'Team updated successfully');
@@ -125,7 +176,7 @@ class TeamController extends Controller
     		abort(404);
     	}
 
-        $team->member()->sync([]);
+        $team->members()->sync([]);
 
         $team->delete();               
 
@@ -133,15 +184,39 @@ class TeamController extends Controller
                          ->with('success', 'Team deleted successfully');
     }
 
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy2(string $id)
+    {
+        $team = Team::find($id);
+        if(!isset($team) || empty($team)) {
+    		return response()->json([
+                'success' => false,
+                'message' => 'Woops! The requested resource was not found!'
+            ], 404);
+    	}
+
+        $team->members()->sync([]);
+
+        $team->delete();               
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Well done! Team deleted successfully.',
+            'team_id' => $id
+        ], 200);
+    }
+
     public function getTeamMembers($teamId)
     {
         $data = [];
-        $team = Team::with('member')->find($teamId);
+        $team = Team::with('members')->find($teamId);
         if(!isset($team) || empty($team)) {
     		abort(404);
     	}
 
-        $data['members'] = $team->member;
+        $data['members'] = $team->members;
 
         return response()->json([
             'success' => true,
